@@ -30,3 +30,138 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+  body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+      background-color: #866abb;
+      font-family:  'Raleway', sans-serif;
+    }
+
+  .result {
+
+    background-color: #6e4fa8;
+    font-family:  'Raleway', sans-serif;
+  }
+
+
+  h1 {
+    color: white;
+    font-size: 300px;
+   
+    font-weight: 300;
+    letter-spacing: 20px;
+  }
+
+  h2 {
+    color: white;
+    
+   
+    font-weight: 300;
+    letter-spacing: 20px;
+  }
+
+
+  .info-container {
+  
+    color: #d6d6d6;
+    padding: 1%
+}
+
+.flex-container {
+  
+  background: #d6d6d6;
+  padding: 1%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+
+}
+
+.flex-child {
+  
+  text-align: left;
+  background: #fff;
+  padding: 1rem;
+    width: 15rem;
+    align-items:stretch;
+    display: inline-grid;
+    margin: 0.2rem 0.2rem;
+}
+
+.info-container:nth-child(odd) {
+    color: #fdfdfd;
+}
+
+/* .root {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: space-around;
+  justify-content: center;
+  align-items: center;
+ height: 50vh; } */
+
+.vitagene-h1 {
+  margin: 0.2em 0;
+    text-align: center;
+    color: white;
+    font-size: 100px;
+   
+    font-weight: 300;
+    letter-spacing: 20px;
+}
+
+.letter {
+  display: inline-block;
+}
+
+.splash {
+  height: 100%;
+  background: -webkit-linear-gradient(to bottom, #24c6dc, #514a9d); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #24c6dc, #514a9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+padding-bottom: 5%;
+}
+
+.result {
+  height: 100%;
+  width: 50%;
+  /* float: left; */
+  background: linear-gradient(to bottom ,#514A9D, #4d267a); /* Chrome 10-25, Safari 5.1-6 */
+
+}
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+   height: 300px;
+  }
+  to{
+    height: 50px;
+  }
+}
+
+@keyframes slideInFromTop2 {
+  from {
+   transform: translateY(-100%)
+  }
+  to{
+    transform: translateY(-100%);
+  }
+}
+
+.splash-report {
+  /* height: 50px; */
+  animation: 1s ease-out 0s 1 slideInFromTop ;
+  
+
+}
