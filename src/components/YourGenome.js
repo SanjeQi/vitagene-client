@@ -3,8 +3,12 @@ import BarGroup from './BarGroup';
 import logo from '../logo.svg';
 import { Parallax } from 'react-scroll-parallax';
 import CanvasJSReact from '../canvasjs.react'
+import Button from '@material-ui/core/Button'
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 
 class YourGenome extends Component {
 
@@ -61,19 +65,25 @@ const options = {
     colorSet:  "colorSet2",
     theme: "light2",
     title:{
-   
+        fontColor: "black",
         fontFamily: "raleway",
     },
     axisX: {
         
         reversed: true,
-        fontFamily: "raleway"
+        fontFamily: "raleway",
+        labelFontFamily: "raleway",
+        labelFontColor: "white",
+      
         
     },
     axisY: {
         title: "Blood Serum Concentration",
         labelFormatter: this.addSymbols,
-        fontFamily: "raleway"
+        labelFontFamily: "raleway",
+        labelFontColor: "white",
+        titleFontFamily: "raleway",
+        titleFontColor: "white",
     },
     data: [{
         type: "bar",
@@ -81,25 +91,37 @@ const options = {
     }]
 }
 
+
+
+const style = {
+    
+
+        borderRadius: 3,
+        border: '1px solid white',
+        color: 'white',
+        height: 48,
+        width: 110,
+        padding: '0 30px',
+        // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      
+    
+  };
+
 return (
 
-<div className="result">
-    <h2>Your phenotype Results</h2>
-     
+<div className="result-pheno">
+    <h2>Your phenotype Results</h2> 
      <div  className="info-container"> 
-
           <CanvasJSChart options ={options}/>
+          <Button variant="outlined" color="primary" style={style} onClick={() => this.props.scrollTo(1500)}>
+        Your Supplement Stack
+      </Button>
      </div>
-
-
-
-
-
-
-    
 </div>
 
 
 )}
 }
+
+
  export default YourGenome

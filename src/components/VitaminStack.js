@@ -73,13 +73,14 @@ class VitaminStack extends React.Component  {
         let num = 1000
         return (
 
-            <Parallax offsetYMax={25} offsetYMin={-35}>
+            // <Parallax offsetYMax={25} offsetYMin={-35}>
                 <div className="result">
+                <Button variant="outlined" color="primary" onClick={() => this.props.scrollTo(750)}>
+                Your phenotype results</Button>
                     <h2>Your Vitamin Stack</h2>
-                    <Button variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
                     
 
-                    <div className="flex=container">
+                    <div className="flex-container">
                         {getStack().map(vitamin => 
                         
                             
@@ -103,8 +104,12 @@ class VitaminStack extends React.Component  {
                             num = num + 100
                     )}
                     </div>
+                    <Button variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
+                    <br />
+                    <Button variant="outlined" color="primary" onClick={this.props.scrollToLast}>
+                Recommended foods</Button>
                 </div>
-            </Parallax>
+            // </Parallax>
         )
     }
 }

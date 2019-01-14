@@ -34,18 +34,20 @@
 
 
   body {
-    padding: 0;
+    padding: 0; 
+    text-align: center;
     margin: 0;
     height: 100%;
-      background-color: #866abb;
+      background-color: #514a9d;
       font-family:  'Raleway', sans-serif;
     }
 
-  .result {
 
-    background-color: #6e4fa8;
-    font-family:  'Raleway', sans-serif;
-  }
+    p {
+      color: #fff;
+      font-size: 12px;
+    }
+  
 
 
   h1 {
@@ -73,23 +75,29 @@
 
 .flex-container {
   
-  background: #d6d6d6;
+  background: #f39c39;
+  margin: 0 auto;
+  width: 75%;
+  border: 1px solid white;
   padding: 1%;
   display: flex;
   flex-direction: row;
   flex-wrap:wrap;
 
+
 }
 
 .flex-child {
   
-  text-align: left;
+  text-align: center;
   background: #fff;
   padding: 1rem;
-    width: 15rem;
+    width: 20%;
+    height:20%;
     align-items:stretch;
     display: inline-grid;
     margin: 0.2rem 0.2rem;
+    font-size: 10px;
 }
 
 .info-container:nth-child(odd) {
@@ -119,19 +127,36 @@
 }
 
 .splash {
-  height: 100%;
+  height:100vh;
+  padding-bottom:25%;
   background: -webkit-linear-gradient(to bottom, #24c6dc, #514a9d); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #24c6dc, #514a9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 padding-bottom: 5%;
 }
 
+.result-pheno {
+  background-color:#514A9D;
+  height:100vh;
+}
+
 .result {
-  height: 100%;
-  width: 50%;
+  height: 100vh;
+
   /* float: left; */
   background: linear-gradient(to bottom ,#514A9D, #4d267a); /* Chrome 10-25, Safari 5.1-6 */
 
 }
+.result-food {
+  background-color:#4d267a;
+  height:  100vh;
+  margin-top: -2%;
+}
+
+.result-food-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
 @keyframes slideInFromLeft {
   0% {
     transform: translateX(-100%);
@@ -143,10 +168,10 @@ padding-bottom: 5%;
 
 @keyframes slideInFromTop {
   from {
-   height: 300px;
+   height: 100vh;
   }
   to{
-    height: 50px;
+    height: 50vh;
   }
 }
 
@@ -159,8 +184,28 @@ padding-bottom: 5%;
   }
 }
 
+
+
+@keyframes wordspread {
+  from {
+    letter-spacing: 20px;
+  }
+  to{
+    letter-spacing: 0px;
+  }
+}
+
+.word-cloud {
+  letter-spacing: 0px;
+  animation: 1s ease-out 0s 1 wordspread;
+  text-align: center;
+  margin: 0 auto;
+  width: 50%;
+  padding-top: 5%;
+}
+
 .splash-report {
-  /* height: 50px; */
+  height: 50vh;
   animation: 1s ease-out 0s 1 slideInFromTop ;
   
 
