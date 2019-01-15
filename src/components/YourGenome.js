@@ -61,6 +61,7 @@ render () {
 
 const options = {
     animationEnabled: true,
+    animationDuration: 2000,
     backgroundColor: "rgba(255,0,0,0)",
     colorSet:  "colorSet2",
     theme: "light2",
@@ -78,12 +79,13 @@ const options = {
         
     },
     axisY: {
-        title: "Blood Serum Concentration",
+        title: "Typical blood serum concentration for your genotype (0-4)",
         labelFormatter: this.addSymbols,
         labelFontFamily: "raleway",
         labelFontColor: "white",
         titleFontFamily: "raleway",
         titleFontColor: "white",
+        titleFontSize: 14
     },
     data: [{
         type: "bar",
@@ -100,7 +102,6 @@ const style = {
         border: '1px solid white',
         color: 'white',
         height: 48,
-        width: 110,
         padding: '0 30px',
         // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
       
@@ -111,12 +112,25 @@ return (
 
 <div className="result-pheno">
     <h2>Your phenotype Results</h2> 
+    <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype. Each nutrient is assigned a score that corresponds to the following: </p>
+    <ul>
+     <li>0 Lower blood serum level</li> 
+     <li>1 Slightly lower serum level</li> 
+     <li>2 Intermediate</li> 
+     <li>3 Slightly higher serum level</li> 
+     <li>4 'Higher blood serum level</li> 
+   </ul>
      <div  className="info-container"> 
           <CanvasJSChart options ={options}/>
-          <Button variant="outlined" color="primary" style={style} onClick={() => this.props.scrollTo(1500)}>
+          {/* <Button variant="outlined" color="primary" style={style} onClick={() => this.props.scrollTo(1500)}>
         Your Supplement Stack
-      </Button>
+      </Button> */}
+     
      </div>
+     <br />
+     <div id="section07" className="demo">
+                    <p onClick={() => this.props.scrollTo(1800)}><span></span><span></span><span></span>Click to scroll</p>
+                </div>
 </div>
 
 

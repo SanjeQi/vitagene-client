@@ -10,7 +10,7 @@ class Header extends Component {
     
    
   
-        <div className="root">
+        <div className="head">
          <span className={`vitagene-h1`}>
             {'Vitagene'.split('').map((letter, i) => (
                 <Parallax
@@ -28,7 +28,7 @@ class Header extends Component {
     
   )
   render() {
-    const {checked, getReport} = this.props
+    const {checked, getReport, page} = this.props
     const style = {
     
       background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -47,7 +47,7 @@ class Header extends Component {
       
 
       <div className="splash"> 
- {!checked ?
+ {page === 'splash' ?
          <div className="splash">
            <img src={logo} className="App-logo" alt="logo" />
           {this.introCopy()}
