@@ -28,7 +28,7 @@ class Header extends Component {
     
   )
   render() {
-    const {checked, getReport, page} = this.props
+    const {checked, getReport, page, exit} = this.props
     const style = {
     
       background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -57,15 +57,30 @@ class Header extends Component {
             </p>
        
           <Button style={style} variant="contained" onClick={getReport} >
-        Connect with genome
-        </Button>
+            Connect with genome
+          </Button>
       </div>
       : 
+      ( page !== 'end' ? 
       <div className="splash-report">
       <img src={logo} className="App-logo" alt="logo" />
      {this.introCopy()}
        
-        </div>}
+        </div>
+        :
+        <div className="splash-report">
+        <img src={logo} className="App-logo" alt="logo" />
+       {this.introCopy()}
+          <br/>
+          <Button style={style} variant="contained" onClick={exit} >
+            Exit?
+          </Button>
+         
+          </div>)
+
+      }
+
+
 
 
 
