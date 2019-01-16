@@ -48,7 +48,7 @@ class Header extends Component {
 
       <div className="splash"> 
  {page === 'splash' ?
-         <div className="splash">
+         <div className="splash" name="splash">
            <img src={logo} className="App-logo" alt="logo" />
           {this.introCopy()}
             <p>
@@ -63,13 +63,13 @@ class Header extends Component {
       : 
       ( page !== 'end' ? 
       <div className="splash-report">
-      <img src={logo} className="App-logo" alt="logo" />
+      <img src={logo} className="App-logo" alt="logo"  />
      {this.introCopy()}
        
         </div>
         :
         <div className="splash-report">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo"  name="end" />
        {this.introCopy()}
           <br/>
           <Button style={style} variant="contained" onClick={exit} >

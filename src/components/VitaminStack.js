@@ -93,15 +93,15 @@ class VitaminStack extends React.Component  {
         };
 
         const link = {
-            color: 'white',
+            color: 'black',
             fontSize: '9px'
         }
 
         return (
 
-             <div className="result">
+             <div className="result-vitamin">
                
-                <h2>Your Vitamin Stack</h2>
+                <h2 id="vitamin">Your Vitamin Stack</h2>
                 <p>Based on your genotype, these are your suggested daily supplements.</p>
                 <Button variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
                     
@@ -117,7 +117,11 @@ class VitaminStack extends React.Component  {
                                 <h3>{vitamin}</h3>
                                 <img className="vitstructure" src={images[`${getVitaminInfo(vitamin).image}`]} alt={`chemical structure of ${getVitaminInfo(vitamin).name}`} />
                                 <CardActions>
-                                    <Button style={link} onClick={()=> this.expandInfo(vitamin) }  size="small">Learn More</Button>
+                                    {boxOpen && selectedVitamin === vitamin ?
+                                        <Button style={link} onClick={this.closeBox}  size="small">Close</Button>
+                                        :
+                                        <Button style={link} onClick={()=> this.expandInfo(vitamin) }  size="small">Learn More</Button>
+                                    }
                                 </CardActions>
                             </Card>   
                         </Slide>

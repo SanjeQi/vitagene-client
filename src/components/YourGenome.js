@@ -52,13 +52,18 @@ class YourGenome extends Component {
         var suffix = suffixes[order];
         return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
     }
+
+    windowSize = () => {
+        const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        return width > 768 ? 2200 : 1650
+    }
     
 
 
     render () {
         const {report, onPage} = this.props
         const checked = onPage('genome')
-
+        const num = this.windowSize()
 
         const options = {
             animationEnabled: true,
@@ -110,7 +115,7 @@ class YourGenome extends Component {
     return (
 
         <div className="result-pheno">
-            <h2>Your phenotype Results</h2> 
+            <h2 name="genome">Your phenotype Results</h2> 
             <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype. Each nutrient is assigned a score that corresponds to the following: </p>
             <ul>
                 <li>1 - Lower blood serum level</li> 
@@ -127,11 +132,9 @@ class YourGenome extends Component {
             </div>
             
             <div id="section07" className="demo">
-                <p onClick={() => this.props.scrollTo(1800)}><span></span><span></span><span></span>Click to scroll</p>
+                <p onClick={() => this.props.scrollTo(num)}><span></span><span></span><span></span>Click to scroll</p>
             </div>
         </div>
-
-
         )}
 }
 

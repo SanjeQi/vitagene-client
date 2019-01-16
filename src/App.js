@@ -35,6 +35,8 @@ class App extends Component {
     }
     this.getVitamins()
 
+    
+ 
 
     Events.scrollEvent.register('begin', function(to, element) {
       console.log("begin", arguments);
@@ -50,6 +52,8 @@ class App extends Component {
 
    // SCROLL FUNCTIONS
 
+   
+
    componentWillUnmount() {
       Events.scrollEvent.remove('begin');
       Events.scrollEvent.remove('end');
@@ -57,7 +61,7 @@ class App extends Component {
 
   scrollToTop =  () => {
     scroll.scrollToTop();
-    this.setPage('exit')
+    this.setPage('end')
   }
   scrollToBottom =  () => {
     scroll.scrollToBottom()
@@ -84,7 +88,8 @@ class App extends Component {
 
   // PAGE TRANSITION FUNCTIONS
   setPage = (pg) => {
-    this.setState({page:pg})
+    this.setState({page:pg}  )
+    
   }
 
   onPage = (pg) => {
@@ -158,8 +163,10 @@ class App extends Component {
             {report ?
               <Fragment>  
                 <YourGenome onPage={onPage} page={page}  scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report} />
-                <VitaminStack onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report} />
-                <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report} />
+                <Element name="vitamin" className="element">
+                  <VitaminStack  onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report} />
+                </Element>
+               <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report} />
               </Fragment>
             :
               <Fragment></Fragment>

@@ -29,11 +29,16 @@ class Diet extends Component {
         )
         return array 
     }
+
+    windowSize = () => {
+        const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        return width > 768 ? 30 : 25
+    }
  
    render() {
-
+        const num = this.windowSize()
         const {onPage, page} = this.props
-        let num = 1000
+        // let num = 1000
         const checked = onPage('food')
 
         return (
@@ -42,11 +47,11 @@ class Diet extends Component {
                     <h2>Recommended Foods</h2>
                     {checked ?  
                         <div className="word-cloud">
-                            <WordCloud 
+                            <WordCloud className="words"
                                 width={"auto"} 
                                 maxFont={60} 
                                 minFont={16} 
-                                logFunc={(x)=> Math.log2(x) * 30} 
+                                logFunc={(x)=> Math.log2(x) * num} 
                                 data={this.generateFoodMap()} 
                                 clickEvent={(x)=>console.log(x.word)} 
                                 color={['#71803F', '#F8AC1D','#598EC0','#E2543E','#1A3051','#F46F73',
