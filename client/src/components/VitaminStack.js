@@ -19,6 +19,12 @@ class VitaminStack extends React.Component  {
 
     }
 
+    componentDidMount(){
+        if (this.props.onPage('vitamins')) {
+        document.getElementById("vitamins").scrollIntoView({behavior: "smooth", block: "start"})
+        }
+    }
+
     vitaminAmazonLink = () => {
       let link =  'http://www.amazon.co.uk/gp/aws/cart/add.html?AssociateTag=lolao-21'
         let counter = 1
@@ -82,7 +88,7 @@ class VitaminStack extends React.Component  {
         const {boxOpen, selectedVitamin} = this.state
        
         let num = 1000
-        const checked = onPage('vitaminstack')
+        const checked = onPage('vitamins')
         const images = this.importAll(require.context('../images', true, /^\.\/.*\.(jpg|png|gif)$/))
         const smallCard = {
             background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -101,7 +107,7 @@ class VitaminStack extends React.Component  {
 
              <div className="result-vitamin">
                
-                <h2 id="vitamin">Your Vitamin Stack</h2>
+                <h2 id="vitamins">Your Vitamin Stack</h2>
                 <p>Based on your genotype, these are your suggested daily supplements.</p>
                 <Button variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
                     

@@ -56,7 +56,7 @@ class Header extends Component {
               Click the button below to connect with your genome via 23andMe.
             </p>
        
-          <Button style={style} variant="contained" onClick={() => {getReport(); this.props.history.push('/genome')}}>
+          <Button style={style} variant="contained" onClick={() => {getReport(); this.props.history.push('/result')}}>
             Connect with genome
           </Button>
       </div>
@@ -72,7 +72,7 @@ class Header extends Component {
         <img src={logo} className="App-logo" alt="logo"  name="end" />
        {this.introCopy()}
           <br/>
-          <Button style={style} variant="contained" onClick={exit} >
+          <Button style={style} variant="contained" onClick={() => {exit()}} >
             Exit?
           </Button>
           </div>)

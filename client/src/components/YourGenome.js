@@ -44,7 +44,9 @@ class YourGenome extends Component {
     
 
     componentDidMount(){
-        document.getElementById("genome").scrollIntoView()
+        if (this.props.onPage('genome')) {
+            document.getElementById("genome").scrollIntoView({behavior: "smooth", block: "start"})
+        }
     }
     addSymbols(e){
         var suffixes = ["", "K", "M", "B"];
@@ -63,7 +65,7 @@ class YourGenome extends Component {
 
 
     render () {
-        const {report, onPage} = this.props
+        const {report, onPage,setPage} = this.props
         const checked = onPage('genome')
         const num = this.windowSize()
 
@@ -132,14 +134,14 @@ class YourGenome extends Component {
                 <li>5 - Higher blood serum level</li> 
             </ul>
             <div  className="info-container"> 
-            {/* <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
-                                    mountOnEnter > */}
+            <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
+                                    mountOnEnter > 
                 <CanvasJSChart options ={options}/>
-                {/* </Slide> */}
+             </Slide>
             </div>
             
             <div id="section07" className="demo">
-                <p onClick={() => this.props.scrollTo(num)}><span></span><span></span><span></span>Click to scroll</p>
+                <p onClick={() => {setPage('vitamins'); {/*this.props.history.push('/vitamins')*/}}}><span></span><span></span><span></span>Click to scroll</p>
                 
             </div>
          

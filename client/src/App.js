@@ -85,7 +85,8 @@ class App extends Component {
 
   // PAGE TRANSITION FUNCTIONS
   setPage = (pg) => {
-    this.setState({page:pg}  )
+    this.setState({page:pg})
+    
     
   }
 
@@ -98,8 +99,10 @@ class App extends Component {
   }
 
   exit = () => {
+   
     this.setState({ report: null,
-    page: 'splash' });
+    page: 'splash',  checked: false },  this.props.history.push('/'))
+   
   }
 
   
@@ -112,10 +115,12 @@ class App extends Component {
             { 
             switch (i.trait) {
                 case "Folate":
-                stack.push("Folic Acid");
+                stack.push("Folic acid");
+                break;
                 default:stack.push(i.trait) }
             }
       }
+      console.log(stack)
       return stack
     }
 
@@ -140,9 +145,10 @@ class App extends Component {
       this.setState({ report: localStorage.getItem('report') })
     }
     this.callApi()
-    .then(res => this.setState({ report: res.report }))
+    .then(res => this.setState({ report: res.report}))
     .then(this.toggleStackView())
-    .then(this.genomePage())
+    .then(this.setPage('genome'))
+
   }
 
   callApi = async () => {
@@ -152,23 +158,19 @@ class App extends Component {
     return body;
   };
 
-genomePage = () => {
-  this.setPage('genome')
-  
 
-}
  
    render() {
     
-    const {vitamins,report, checked, page} = this.state
-    const {onPage, getStack, getScore, getReport, scrollTo, scrollToTop, exit, scrollToBottom, scrollToLast} = this
+    const {vitamins,report, connected, checked, page} = this.state
+    const {onPage, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast} = this
     const Container = () => {
       return ( 
       <Fragment>
           <Header page={page} checked={checked} exit={exit} getReport={getReport}/>
-          <YourGenome  onPage={onPage} page={page}  scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
-          <VitaminStack onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
-          <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
+          <YourGenome  onPage={onPage} page={page}  setPage={setPage} scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
+          <VitaminStack onPage={onPage} page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
+          <Diet onPage={onPage} scrollToTop={scrollToTop} setPage={setPage} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
       </Fragment>)
   
     }
@@ -196,24 +198,19 @@ genomePage = () => {
 
       <Router>
         <div className="page">
-   {/* // component={Header} page={page} checked={checked} exit={exit} getReport={getReport}  onEnter={() => document.getElementById("header-logo").scrollIntoView()}  />
-           */}
-            <Switch>
-         {!report ?
-        <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} />} />
-        
-        :
-       <Fragment>
-        <Route path='/genome'render={routerProps => <Container {...routerProps} />} onEnter={() => document.getElementById("genome").scrollIntoView()} />
-          <Route path='/vitamins' component={Container}  onEnter={() => document.getElementById("vitamin").scrollIntoView()}/>
-          <Route path='/food' component={Container}  onEnter={() => document.getElementById("food").scrollIntoView()}/>
+          <Switch>
+            
+            {!report ?
+              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} />} />
+            :
+              <Fragment>
+                <Route path='/result'render={routerProps => <Container {...routerProps} />}  />
+              </Fragment> 
+            }
+            <Route component={() => <h3>You are not permitted to view this page.</h3>} />
           
-          {/* <Route component={() => <h3>You are not permitted to view this page.</h3>} /> */}
-          </Fragment> 
-        }
-        </Switch>
-          
-           </div>
+          </Switch>
+         </div>
       </Router>
   )
 
