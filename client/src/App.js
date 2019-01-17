@@ -3,6 +3,7 @@ import logo from './LogoMakr_7sWE81.png';
 import './App.css';
 import Header from './components/Header'
 import VitaminStack from './components/VitaminStack'
+import Form from './components/Form'
 import Intro from './components/Intro'
 import YourGenome from './components/YourGenome'
 import Diet from './components/Diet'
@@ -62,7 +63,7 @@ class App extends Component {
   }
   scrollToBottom =  () => {
     scroll.scrollToBottom()
-    this.setPage('genome');
+
     
   }
   scrollTo =  (x) => {
@@ -79,7 +80,7 @@ class App extends Component {
 
   scrollToLast =  () => {
     scroll.scrollToBottom();
-    this.setPage('food')
+    this.setPage('diet')
     
   }
 
@@ -167,7 +168,7 @@ class App extends Component {
     const Container = () => {
       return ( 
       <Fragment>
-          <Header page={page} checked={checked} exit={exit} getReport={getReport}/>
+          <Header page={page} onPage={onPage} checked={checked} exit={exit} getReport={getReport}/>
           <YourGenome  onPage={onPage} page={page}  setPage={setPage} scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
           <VitaminStack onPage={onPage} page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
           <Diet onPage={onPage} scrollToTop={scrollToTop} setPage={setPage} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
@@ -201,7 +202,8 @@ class App extends Component {
           <Switch>
             
             {!report ?
-              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} />} />
+              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} onPage={onPage} />} />
+              
             :
               <Fragment>
                 <Route path='/result'render={routerProps => <Container {...routerProps} />}  />

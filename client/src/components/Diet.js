@@ -39,12 +39,12 @@ class Diet extends Component {
         const num = this.windowSize()
         const {onPage, page} = this.props
         // let num = 1000
-        const checked = onPage('food')
+        const checked = onPage('diet')
 
         return (
             <div className="result-food">
                 <div className="result-food-container">
-                    <h2 id="food">Recommended Foods</h2>
+                    <h2 id="diet">Recommended Foods</h2>
                     {checked ?  
                         <div className="word-cloud">
                             <WordCloud className="words"

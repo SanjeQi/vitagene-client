@@ -2,7 +2,7 @@ import React,  { Component } from 'react';
 import logo from '../logostraight.png';
 import Button from '@material-ui/core/Button';
 import { Parallax } from 'react-scroll-parallax'
-
+import Form from './Form'
 class Header extends Component {
 
   
@@ -55,7 +55,7 @@ class Header extends Component {
               Choosing the right set of vitamins for your daily supplementation can be difficult. With Vitagene you can discover the perfect combination of vitamins and minerals based on your genetic phenotypes.
               Click the button below to connect with your genome via 23andMe.
             </p>
-       
+       <Form />
           <Button style={style} variant="contained" onClick={() => {getReport(); this.props.history.push('/result')}}>
             Connect with genome
           </Button>
@@ -72,7 +72,7 @@ class Header extends Component {
         <img src={logo} className="App-logo" alt="logo"  name="end" />
        {this.introCopy()}
           <br/>
-          <Button style={style} variant="contained" onClick={() => {exit()}} >
+          <Button style={style} variant="contained" onClick={() => { exit()}} >
             Exit?
           </Button>
           </div>)
