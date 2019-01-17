@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BarGroup from './BarGroup';
 import logo from '../logo.svg';
 import { Parallax } from 'react-scroll-parallax';
 import CanvasJSReact from '../canvasjs.react'
@@ -44,6 +43,9 @@ class YourGenome extends Component {
     }
     
 
+    componentDidMount(){
+        document.getElementById("genome").scrollIntoView()
+    }
     addSymbols(e){
         var suffixes = ["", "K", "M", "B"];
         var order = Math.max(Math.floor(Math.log(e.value) / Math.log(1000)), 0);
@@ -112,10 +114,15 @@ class YourGenome extends Component {
             // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     };
 
-    return (
+  
 
+
+    return (
+      
         <div className="result-pheno">
-            <h2 name="genome">Your phenotype Results</h2> 
+        {console.log('here')}
+       
+            <h2 id="genome" name="genome">Your phenotype Results</h2> 
             <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype. Each nutrient is assigned a score that corresponds to the following: </p>
             <ul>
                 <li>1 - Lower blood serum level</li> 
@@ -133,9 +140,14 @@ class YourGenome extends Component {
             
             <div id="section07" className="demo">
                 <p onClick={() => this.props.scrollTo(num)}><span></span><span></span><span></span>Click to scroll</p>
+                
             </div>
+         
         </div>
+  
+        
         )}
+        
 }
 
 

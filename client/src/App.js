@@ -8,10 +8,10 @@ import YourGenome from './components/YourGenome'
 import Diet from './components/Diet'
 import { Parallax } from 'react-scroll-parallax'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import {  Link, Switch } from 'react-router-dom'
+import {  Link, Switch, withRouter } from 'react-router-dom'
 // import  scrollToComponent from 'react-scroll-to-component'
 import * as Scroll from 'react-scroll';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import {  Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
  
 
 class App extends Component {
@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   
- 
+ //Initial Render
   componentDidMount() {
     if (!navigator.onLine) {
       this.setState({ vitamins: localStorage.getItem('vitamins') })
@@ -131,17 +131,6 @@ class App extends Component {
     
   }
  
-  // getReport = () => {
-  //   if (!navigator.onLine) {
-  //     this.setState({ report: localStorage.getItem('report') })
-  //   }
-  //   fetch("http://localhost:3001/report")
-  //     .then(res =>res.json())
-  //     .then( res => this.setState({report: [...res] },   this.scrollToBottom()))
-    
-  //     this.toggleStackView()
-  //     this.scrollToBottom()
-  // }
 
 
 
@@ -152,8 +141,8 @@ class App extends Component {
     }
     this.callApi()
     .then(res => this.setState({ report: res.report }))
-    this.toggleStackView()
-    this.scrollToBottom()
+    .then(this.toggleStackView())
+    .then(this.genomePage())
   }
 
   callApi = async () => {
@@ -163,34 +152,74 @@ class App extends Component {
     return body;
   };
 
+genomePage = () => {
+  this.setPage('genome')
+  
 
+}
  
    render() {
     
     const {vitamins,report, checked, page} = this.state
     const {onPage, getStack, getScore, getReport, scrollTo, scrollToTop, exit, scrollToBottom, scrollToLast} = this
+    const Container = () => {
+      return ( 
+      <Fragment>
+          <Header page={page} checked={checked} exit={exit} getReport={getReport}/>
+          <YourGenome  onPage={onPage} page={page}  scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
+          <VitaminStack onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
+          <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
+      </Fragment>)
+  
+    }
 
     return (
-       <div className="page">
-        <Fragment>
-          <div>
-            <Header page={page} checked={checked} exit={exit} getReport={getReport}/>
-            {report ?
-              <Fragment>  
-                <YourGenome onPage={onPage} page={page}  scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report} />
-                <Element name="vitamin" className="element">
-                  <VitaminStack  onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report} />
-                </Element>
-               <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report} />
-              </Fragment>
-            :
-              <Fragment></Fragment>
-            }
-          </div>
-        </Fragment>
-     </div>
-     );
+    //    <div className="page">
+    //     <Fragment>
+    //       <div>
+    //         <Header page={page} checked={checked} exit={exit} getReport={getReport}/>
+    //         {report ?
+    //           <Fragment>  
+    //             <YourGenome onPage={onPage} page={page}  scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report} />
+              
+    //               <VitaminStack  onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report} />
+                
+    //            <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report} />
+    //           </Fragment>
+    //         :
+    //           <Fragment></Fragment>
+    //         }
+    //       </div>
+    //     </Fragment>
+    //  </div>
+    //  )
+
+      <Router>
+        <div className="page">
+   {/* // component={Header} page={page} checked={checked} exit={exit} getReport={getReport}  onEnter={() => document.getElementById("header-logo").scrollIntoView()}  />
+           */}
+            <Switch>
+         {!report ?
+        <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} />} />
+        
+        :
+       <Fragment>
+        <Route path='/genome'render={routerProps => <Container {...routerProps} />} onEnter={() => document.getElementById("genome").scrollIntoView()} />
+          <Route path='/vitamins' component={Container}  onEnter={() => document.getElementById("vitamin").scrollIntoView()}/>
+          <Route path='/food' component={Container}  onEnter={() => document.getElementById("food").scrollIntoView()}/>
+          
+          {/* <Route component={() => <h3>You are not permitted to view this page.</h3>} /> */}
+          </Fragment> 
+        }
+        </Switch>
+          
+           </div>
+      </Router>
+  )
+
+
+   
    }
  }
 
-export default App;
+export default withRouter(App);

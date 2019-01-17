@@ -25,6 +25,7 @@ Visit (http://localhost:3002) to view it in the browser.
 ## Built With
 
 [React](https://reactjs.org)
+[Express](https://expressjs.com)
 
 
 ## Authors

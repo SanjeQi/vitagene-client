@@ -49,14 +49,14 @@ class Header extends Component {
       <div className="splash"> 
  {page === 'splash' ?
          <div className="splash" name="splash">
-           <img src={logo} className="App-logo" alt="logo" />
+           <img src={logo} id="header-logo" className="App-logo" alt="logo" />
           {this.introCopy()}
             <p>
               Choosing the right set of vitamins for your daily supplementation can be difficult. With Vitagene you can discover the perfect combination of vitamins and minerals based on your genetic phenotypes.
               Click the button below to connect with your genome via 23andMe.
             </p>
        
-          <Button style={style} variant="contained" onClick={getReport} >
+          <Button style={style} variant="contained" onClick={() => {getReport(); this.props.history.push('/genome')}}>
             Connect with genome
           </Button>
       </div>

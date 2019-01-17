@@ -44,7 +44,7 @@ class Diet extends Component {
         return (
             <div className="result-food">
                 <div className="result-food-container">
-                    <h2>Recommended Foods</h2>
+                    <h2 id="food">Recommended Foods</h2>
                     {checked ?  
                         <div className="word-cloud">
                             <WordCloud className="words"

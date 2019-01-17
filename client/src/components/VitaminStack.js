@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../logo.svg';
+
 import { Parallax } from 'react-scroll-parallax'
 import Switch from '@material-ui/core/Switch';
 import Slide from '@material-ui/core/Slide';
