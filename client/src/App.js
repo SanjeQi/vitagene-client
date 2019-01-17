@@ -131,9 +131,10 @@ class App extends Component {
 
 
   getVitamins = () => {
-    fetch("http://localhost:3000/api/v1/vitamins")
-    .then(res =>res.json())
-    .then(res => this.setState({vitamins: [...res] }, localStorage.setItem('vitamins', res)))
+    this.callApi('vitamins')
+    // fetch("http://localhost:3000/api/v1/vitamins")
+    .then(res => this.setState({ vitamins: res.vitamins},localStorage.setItem('vitamins', res)))
+  
     
   }
  
@@ -145,17 +146,18 @@ class App extends Component {
     if (!navigator.onLine) {
       this.setState({ report: localStorage.getItem('report') })
     }
-    this.callApi()
+    this.callApi('report')
     .then(res => this.setState({ report: res.report}))
     .then(this.toggleStackView())
     .then(this.setPage('genome'))
 
   }
 
-  callApi = async () => {
-    const response = await fetch('/api/report');
+  callApi = async (item) => {
+    const response = await fetch(`/api/${item}`);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
+    console.log(body)
     return body;
   };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Button from '@material-ui/core/Button';
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 
@@ -16,115 +16,83 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 class Form extends Component {
 
-  state = {
-    african: false, 
-    vegan: false,
-    pregnant: false,
-  }
- 
-  handleChange = (event) => {
-    this.setState({ value: event.target.value });
-
-  }
-
-  handleSubmit = () => {
-
-  }
+  
 
  
  
    render() {
 
-     return (
-       <div className="Form">
-      
-      <Slider>
+    const buttonStyle = {
+    
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 48,
+      padding: '0 30px',
+      boxShadow: '0 3px 2px 2px rgba(255, 105, 135, .3)',
+    
   
+    }
 
-        <div>
-        <FormControl component="fieldset" >
-          <FormLabel component="legend">Are you..</FormLabel>
-          <RadioGroup
-            aria-label="Gender"
-            name="gender1"
-            
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-          </RadioGroup>
-        </FormControl>
-        </div>
+    const formStyle = {
 
-         <div >
-        <FormControl component="fieldset" >
-          <FormLabel component="legend">Are you pregnant or trying?</FormLabel>
-          <RadioGroup
-            aria-label="Pregnant"
-            name="Pregnant"
-            
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="Yes" control={<Radio />} label="No" />
-            <FormControlLabel value="No" control={<Radio />} label="No" />
-          </RadioGroup>
-        </FormControl>
-        </div>
+      
+    }
 
+    const {handleChange, handleSubmit} = this.props
 
-          <div >
-        <FormControl component="fieldset" >
-          <FormLabel component="legend">Are you pregnant or trying?</FormLabel>
-          <RadioGroup
-            aria-label="pregnant"
-            name="pregnant"
-            
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="Yes" control={<Radio />} label="No" />
-            <FormControlLabel value="No" control={<Radio />} label="No" />
-          </RadioGroup>
-        </FormControl>
-        </div>
+    const content =  [{
+      question: 'Are you vegan?',
+      label: 'vegan'
+    },
+    {
+      question: 'Are you of African descent?',
+      label: 'african'
+    },
+    {
+      question: 'Are you pregnant or trying?',
+      label: 'pregnant'
+    }]
+
+     return (
+
+       <div className="form">
+      <p>A few questions to take your lifestyle into account..</p>
+      <Slider>
+
+      {content.map(question =>
+
+      <div>
+    <FormControl component="fieldset">
+      <FormLabel component="legend">{question.question}</FormLabel>
+      <RadioGroup
+        aria-label={question.label}
+        name={question.label}
+        
+        // value={this.props.{question.label}}
+        onChange={this.handleChange}
+      >
+        <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+        <FormControlLabel value="No" control={<Radio />} label="No" />
+      </RadioGroup>
+    </FormControl>
 
 
-          <div>
-        <FormControl component="fieldset" >
-          <FormLabel component="legend">Are you vegan?</FormLabel>
-          <RadioGroup
-            aria-label="vegan"
-            name="vegan"
-          
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="Yes" control={<Radio />} label="No" />
-            <FormControlLabel value="No" control={<Radio />} label="No" />
-          </RadioGroup>
-        </FormControl>
-        </div>
 
-           <div >
-        <FormControl component="fieldset" >
-          <FormLabel component="legend">Are you of African Descent?</FormLabel>
-          <RadioGroup
-            aria-label="african"
-            name="african"
-            
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <FormControlLabel value="Yes" control={<Radio />} label="No" />
-            <FormControlLabel value="No" control={<Radio />} label="No" />
-          </RadioGroup>
-        </FormControl>
-        </div>
+     </div>
 
 
-      </Slider>
+    )}
+
+     <div>
+       <Button style={buttonStyle} variant="contained" onClick={handleSubmit}>
+            Proceed
+          </Button>
+     </div>
+ 
+
+    </Slider>
          
          
        </div>

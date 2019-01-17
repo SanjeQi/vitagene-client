@@ -429,6 +429,21 @@
 
 
 
+/* form */
+
+
+
+
+
+legend {
+  font-size:60px;
+  font-family:raleway;
+  letter-spacing: 5px;
+  color: #303f9f
+}
+
+
+
 
 
 /* responsive css */
