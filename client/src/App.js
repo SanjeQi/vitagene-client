@@ -4,13 +4,11 @@ import './App.css';
 import Header from './components/Header'
 import VitaminStack from './components/VitaminStack'
 import Form from './components/Form'
-import Intro from './components/Intro'
 import YourGenome from './components/YourGenome'
 import Diet from './components/Diet'
 import { Parallax } from 'react-scroll-parallax'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {  Link, Switch, withRouter } from 'react-router-dom'
-// import  scrollToComponent from 'react-scroll-to-component'
 import * as Scroll from 'react-scroll';
 import {  Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
  
@@ -36,9 +34,6 @@ class App extends Component {
     }
     this.getVitamins()
 
-    
- 
-
     Events.scrollEvent.register('begin', function(to, element) {
       console.log("begin", arguments);
     });
@@ -54,7 +49,6 @@ class App extends Component {
    // SCROLL FUNCTIONS
 
    
-
    componentWillUnmount() {
       Events.scrollEvent.remove('begin');
       Events.scrollEvent.remove('end');
@@ -90,8 +84,6 @@ class App extends Component {
   // PAGE TRANSITION FUNCTIONS
   setPage = (pg) => {
     this.setState({page:pg})
-    
-    
   }
 
   onPage = (pg) => {
@@ -103,69 +95,28 @@ class App extends Component {
   }
 
   exit = () => {
-   
     this.setState({ report: null,
     page: 'splash',  checked: false },  this.props.history.push('/'))
    
-  }
+  };
 
   
 
   //DATA RENDER FUNCTIONS
-   getStack = () => {
-      const stack = []
-      
-      for (const i of this.state.report)  {
-          if (this.getScore(i.trait) < 2 )
-            { 
-            switch (i.trait) {
-                case "Folate":
-                stack.push("Folic acid");
-                break;
-                default:stack.push(i.trait) }
-            }
-      }
-      return this.state.vegan || this.state.pregnant || this.state.african ?
-       this.customizeStack(stack) : stack
-    }
-
-    customizeStack = (oldStack) => {
-      console.log(oldStack)
-        if (this.state.vegan) {oldStack = [...oldStack, 'Vitamin B12','Iron', 'Calcium']}
-        console.log(oldStack)
-        if (this.state.african) {oldStack = [...oldStack, 'Vitamin D']}
-        console.log(oldStack)
-        if (this.state.pregnant)  {
-          oldStack = [...oldStack, 'Folic acid', 'Vitamin D'];
-          console.log(oldStack)
-          for( var i = 0; i < oldStack.length-1; i++){ 
-            if ( oldStack[i] === 'Vitamin A') {
-              oldStack.splice(i, 1)
-              console.log(oldStack) 
-            }
-          } 
-         
-        }
-        console.log(oldStack.filter((v, i, a) => a.indexOf(v) === i))
-        return oldStack.filter((v, i, a) => a.indexOf(v) === i); 
-    }
-
-  getScore = name => {
-    return this.state.report.find(r => r.trait === `${name}`).score
-  }
-
+  
+  callApi = async (item) => {
+    const response = await fetch(`/api/${item}`);
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log(body)
+    return body;
+  };
 
   getVitamins = () => {
     this.callApi('vitamins')
-    // fetch("http://localhost:3000/api/v1/vitamins")
     .then(res => this.setState({ vitamins: res.vitamins},localStorage.setItem('vitamins', res)))
-  
-    
   }
  
-
-
-
   getReport = () => {
 
     if (!navigator.onLine) {
@@ -178,13 +129,44 @@ class App extends Component {
 
   }
 
-  callApi = async (item) => {
-    const response = await fetch(`/api/${item}`);
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    console.log(body)
-    return body;
-  };
+  getStack = () => {
+    const stack = []
+    
+    for (const i of this.state.report)  {
+        if (this.getScore(i.trait) < 2 )
+          { 
+          switch (i.trait) {
+              case "Folate":
+              stack.push("Folic acid");
+              break;
+              default:stack.push(i.trait) }
+          }
+    }
+    return this.state.vegan || this.state.pregnant || this.state.african ?
+     this.customizeStack(stack) : stack
+  }
+
+
+  customizeStack = (oldStack) => {
+      if (this.state.vegan) {oldStack = [...oldStack, 'Vitamin B12','Iron', 'Calcium']}
+      if (this.state.african) {oldStack = [...oldStack, 'Vitamin D']}
+      if (this.state.pregnant)  {
+        oldStack = [...oldStack, 'Folic acid', 'Vitamin D'];
+        for( var i = 0; i < oldStack.length-1; i++){ 
+          if ( oldStack[i] === 'Vitamin A') {
+            oldStack.splice(i, 1)
+          }
+        } 
+       
+      }
+      return oldStack.filter((v, i, a) => a.indexOf(v) === i); 
+  }
+
+
+  getScore = name => {
+  return this.state.report.find(r => r.trait === `${name}`).score
+  }
+
 
 
 
@@ -192,7 +174,6 @@ class App extends Component {
   handleChange = (event) => {
     const value = event.target.value === 'yes' ? true : false
     this.setState({ [event.target.name]: value });
-    // if (event.target.name === 'pregnant') 
     console.log(this.state)
    };
 
@@ -205,41 +186,33 @@ class App extends Component {
     const Container = () => {
       return ( 
       <Fragment>
-          <Header handleChange={handleChange} page={page} onPage={onPage} checked={checked} exit={exit} getReport={getReport}/>
-          <YourGenome  onPage={onPage} page={page}  setPage={setPage} scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
-          <VitaminStack african={african} vegan={vegan} pregnant={pregnant} onPage={onPage} page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
-          <Diet onPage={onPage} vegan={vegan} scrollToTop={scrollToTop} setPage={setPage} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
+          <Header handleChange={handleChange} page={page} onPage={onPage}
+           checked={checked} exit={exit} getReport={getReport}/>
+
+          <YourGenome  onPage={onPage} page={page}  setPage={setPage}
+           scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
+
+          <VitaminStack african={african} vegan={vegan} pregnant={pregnant} onPage={onPage} 
+          page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} 
+          getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
+
+          <Diet onPage={onPage} vegan={vegan} scrollToTop={scrollToTop} setPage={setPage}
+           getStack={getStack} exit={exit} page={page} checked={checked} 
+           getScore={getScore} vitamins={vitamins} report={report}/>
       </Fragment>)
   
     }
 
     return (
-    //    <div className="page">
-    //     <Fragment>
-    //       <div>
-    //         <Header page={page} checked={checked} exit={exit} getReport={getReport}/>
-    //         {report ?
-    //           <Fragment>  
-    //             <YourGenome onPage={onPage} page={page}  scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report} />
-              
-    //               <VitaminStack  onPage={onPage} page={page}  scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report} />
-                
-    //            <Diet onPage={onPage} scrollToTop={scrollToTop} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report} />
-    //           </Fragment>
-    //         :
-    //           <Fragment></Fragment>
-    //         }
-    //       </div>
-    //     </Fragment>
-    //  </div>
-    //  )
+  
 
       <Router>
         <div className="page">
           <Switch>
             
             {!report ?
-              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} handleChange={handleChange} onPage={onPage} />} />
+              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} 
+              exit={exit} getReport={getReport} handleChange={handleChange} onPage={onPage} />} />
               
             :
               <Fragment>

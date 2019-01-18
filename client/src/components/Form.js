@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-// import Slider from 'react-animated-slider';
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
@@ -10,17 +7,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick";
+
+
 class Form extends Component {
 
   
-
-  
- 
- 
    render() {
 
     const buttonStyle = {
@@ -36,11 +30,6 @@ class Form extends Component {
   
     }
 
-    const formStyle = {
-
-      
-    }
-
     const settings = {
       dots: true,
       infinite: false,
@@ -50,61 +39,52 @@ class Form extends Component {
       arrows: false
     };
 
-
     const {handleChange, handleSubmit} = this.props
 
     const content =  [{
       question: 'Are you vegan?',
       label: 'vegan'
     },
-    {
-      question: 'Are you of African descent?',
+    { question: 'Are you of African descent?',
       label: 'african'
     },
-    {
-      question: 'Are you pregnant or trying?',
+    { question: 'Are you pregnant or trying?',
       label: 'pregnant'
     }]
 
      return (
 
        <div className="form">
-      <p>A few questions to further personalize your results..
+        <p>A few questions to further personalize your results..
 
-        <br />
-        <a onClick={this.props.handleSubmit}>skip</a>
-      </p>
+          <br />
+          <a onClick={handleSubmit}>skip</a>
+        </p>
       
-      <Slider ref={slider => (this.slider = slider)} {...settings}>
+        <Slider ref={slider => (this.slider = slider)} {...settings}>
 
-      {content.map(question =>
+          {content.map(question =>
 
-      <div>
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{question.question}</FormLabel>
-      <RadioGroup
-        aria-label={question.label}
-        name={question.label}
-        
-        // value={this.props.{question.label}}
-        onChange={(event) => {handleChange(event); this.slider.slickNext()}}
-        // onChange={handleChange}
-      >
-        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-        <FormControlLabel value="no" control={<Radio />} label="No" />
-      </RadioGroup>
-    </FormControl>
+            <div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{question.question}</FormLabel>
 
+                <RadioGroup
+                aria-label={question.label}
+                name={question.label}
+                onChange={(event) => {handleChange(event);
+                  this.slider.slickNext()}}>
 
-
-     </div>
+                  <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                  <FormControlLabel value="no" control={<Radio />} label="No" />
+                </RadioGroup>
+            </FormControl>
+            </div>
 
 
-    )}
+            )}
 
-    </Slider>
-         
-         
+          </Slider> 
        </div>
      );
    }

@@ -31,18 +31,18 @@ class Header extends Component {
 
   introCopy = () => (
     <div className="head">
-         <span className={`vitagene-h1`}>
-            {'Vitagene'.split('').map((letter, i) => (
-              <Parallax
-                key={`copy-${i}`}
-                className="letter"
-                offsetXMax={100 * (i - 3)}
-                >
-                  {letter}
-                </Parallax>
-            ))}
-        </span>
-      </div>
+      <span className={`vitagene-h1`}>
+        {'Vitagene'.split('').map((letter, i) => (
+          <Parallax
+            key={`copy-${i}`}
+            className="letter"
+            offsetXMax={100 * (i - 3)}
+          >
+            {letter}
+          </Parallax>
+        ))}
+      </span>
+    </div>
   )
 
   render() {

@@ -43,9 +43,7 @@ class Diet extends Component {
    render() {
         const num = this.windowSize()
         const {onPage, page} = this.props
-        // let num = 1000
         const checked = onPage('diet')
-
         return (
             <div className="result-food">
                 <div className="result-food-container">

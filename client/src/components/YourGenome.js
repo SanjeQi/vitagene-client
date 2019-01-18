@@ -113,7 +113,7 @@ class YourGenome extends Component {
             color: 'white',
             height: 48,
             padding: '0 30px',
-            // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+            
     };
 
   
@@ -125,7 +125,8 @@ class YourGenome extends Component {
         {console.log('here')}
        
             <h2 id="genome" name="genome">Your phenotype Results</h2> 
-            <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype. Each nutrient is assigned a score that corresponds to the following: </p>
+            <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype.
+                 Each nutrient is assigned a score that corresponds to the following: </p>
             <ul>
                 <li>1 - Lower blood serum level</li> 
                 <li>2 - Slightly lower serum level</li> 
@@ -141,13 +142,9 @@ class YourGenome extends Component {
             </div>
             
             <div id="section07" className="demo">
-                <p onClick={() => {setPage('vitamins'); {/*this.props.history.push('/vitamins')*/}}}><span></span><span></span><span></span>Click to scroll</p>
-                
-            </div>
-         
+                <p onClick={() => {setPage('vitamins')}}><span></span><span></span><span></span>Click to scroll</p>
+            </div>  
         </div>
-  
-        
         )}
         
 }
