@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 // import Slider from 'react-animated-slider';
-import 'react-animated-slider/build/horizontal.css';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -70,7 +69,12 @@ class Form extends Component {
      return (
 
        <div className="form">
-      <p>A few questions to take your lifestyle into account..</p>
+      <p>A few questions to further personalize your results..
+
+        <br />
+        <a onClick={this.props.handleSubmit}>skip</a>
+      </p>
+      
       <Slider ref={slider => (this.slider = slider)} {...settings}>
 
       {content.map(question =>
@@ -97,13 +101,6 @@ class Form extends Component {
 
 
     )}
-
-     <div>
-       <Button style={buttonStyle} variant="contained" onClick={handleSubmit}>
-            Proceed
-          </Button>
-     </div>
- 
 
     </Slider>
          

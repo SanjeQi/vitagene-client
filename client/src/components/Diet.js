@@ -64,7 +64,7 @@ class Diet extends Component {
                                 '#C0C0C0','#523CBD',]}/>
                         </div>
                     :
-                        <div></div>
+                        null
                     }
                 </div>
                 <div id="section08" className="demo">

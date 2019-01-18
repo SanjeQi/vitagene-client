@@ -73,7 +73,7 @@ class Header extends Component {
               {!form ?
                 <Button style={style} variant="contained" onClick={formToggle}>Get started</Button>
               :
-                <Form getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={this.handleChange} />
+                <Form handleSubmit={this.handleSubmit} getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={this.handleChange} />
               }
             </div>
       
