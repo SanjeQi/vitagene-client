@@ -22,6 +22,9 @@ class App extends Component {
     report: null,
     vitamins: null,
     checked: false,
+    african: false, 
+    vegan: false,
+    pregnant: false,
     page: 'splash'
   }
 
@@ -111,6 +114,7 @@ class App extends Component {
   //DATA RENDER FUNCTIONS
    getStack = () => {
       const stack = []
+      
       for (const i of this.state.report)  {
           if (this.getScore(i.trait) < 2 )
             { 
@@ -121,8 +125,29 @@ class App extends Component {
                 default:stack.push(i.trait) }
             }
       }
-      console.log(stack)
-      return stack
+      return this.state.vegan || this.state.vegan || this.state.vegan ?
+       this.customizeStack(stack) : stack
+    }
+
+    customizeStack = (oldStack) => {
+      console.log(oldStack)
+        if (this.state.vegan) {oldStack = [...oldStack, 'Vitamin B12','Iron', 'Calcium']}
+        console.log(oldStack)
+        if (this.state.african) {oldStack = [...oldStack, 'Vitamin D']}
+        console.log(oldStack)
+        if (this.state.pregnant)  {
+          oldStack = [...oldStack, 'Folic acid', 'Vitamin D'];
+          console.log(oldStack)
+          for( var i = 0; i < oldStack.length-1; i++){ 
+            if ( oldStack[i] === 'Vitamin A') {
+              oldStack.splice(i, 1)
+              console.log(oldStack) 
+            }
+          } 
+         
+        }
+        console.log(oldStack.filter((v, i, a) => a.indexOf(v) === i))
+        return oldStack.filter((v, i, a) => a.indexOf(v) === i); 
     }
 
   getScore = name => {
@@ -162,15 +187,25 @@ class App extends Component {
   };
 
 
+
+  //FORM 
+  handleChange = (event) => {
+    const value = event.target.value === 'yes' ? true : false
+    this.setState({ [event.target.name]: value });
+    // if (event.target.name === 'pregnant') 
+    console.log(this.state)
+   };
+
+   
  
    render() {
     
     const {vitamins,report, connected, checked, page} = this.state
-    const {onPage, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast} = this
+    const {onPage, handleChange, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast} = this
     const Container = () => {
       return ( 
       <Fragment>
-          <Header page={page} onPage={onPage} checked={checked} exit={exit} getReport={getReport}/>
+          <Header handleChange={handleChange} page={page} onPage={onPage} checked={checked} exit={exit} getReport={getReport}/>
           <YourGenome  onPage={onPage} page={page}  setPage={setPage} scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
           <VitaminStack onPage={onPage} page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
           <Diet onPage={onPage} scrollToTop={scrollToTop} setPage={setPage} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
@@ -204,7 +239,7 @@ class App extends Component {
           <Switch>
             
             {!report ?
-              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} onPage={onPage} />} />
+              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} exit={exit} getReport={getReport} handleChange={handleChange} onPage={onPage} />} />
               
             :
               <Fragment>

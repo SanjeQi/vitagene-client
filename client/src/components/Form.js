@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import Slider from 'react-animated-slider';
+// import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 
 import PropTypes from 'prop-types';
@@ -12,12 +12,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css"
+import Slider from "react-slick";
 class Form extends Component {
 
   
 
+  
  
  
    render() {
@@ -40,6 +42,16 @@ class Form extends Component {
       
     }
 
+    const settings = {
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false
+    };
+
+
     const {handleChange, handleSubmit} = this.props
 
     const content =  [{
@@ -59,7 +71,7 @@ class Form extends Component {
 
        <div className="form">
       <p>A few questions to take your lifestyle into account..</p>
-      <Slider>
+      <Slider ref={slider => (this.slider = slider)} {...settings}>
 
       {content.map(question =>
 
@@ -71,10 +83,11 @@ class Form extends Component {
         name={question.label}
         
         // value={this.props.{question.label}}
-        onChange={this.handleChange}
+        onChange={(event) => {handleChange(event); this.slider.slickNext()}}
+        // onChange={handleChange}
       >
-        <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-        <FormControlLabel value="No" control={<Radio />} label="No" />
+        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+        <FormControlLabel value="no" control={<Radio />} label="No" />
       </RadioGroup>
     </FormControl>
 

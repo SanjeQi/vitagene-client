@@ -19,10 +19,9 @@ class Header extends Component {
   }
 
   handleChange = (event) => {
-   const value = event.target.value === 'yes' ? true : false
-   this.setState({ [event.target.name]: value });
-   console.log(this.state)
-
+  this.props.handleChange(event)
+  if (event.target.name === 'pregnant') 
+     {this.handleSubmit()}
   }
 
   handleSubmit = () => {
@@ -74,7 +73,7 @@ class Header extends Component {
               {!form ?
                 <Button style={style} variant="contained" onClick={formToggle}>Get started</Button>
               :
-                <Form getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+                <Form getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={this.handleChange} />
               }
             </div>
       
