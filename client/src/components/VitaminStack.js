@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../logo.svg';
+
 import { Parallax } from 'react-scroll-parallax'
 import Switch from '@material-ui/core/Switch';
 import Slide from '@material-ui/core/Slide';
@@ -17,6 +17,12 @@ class VitaminStack extends React.Component  {
         selectedVitamin: null,
         boxOpen: false
 
+    }
+
+    componentDidMount(){
+        if (this.props.onPage('vitamins')) {
+        document.getElementById("vitamins").scrollIntoView({behavior: "smooth", block: "start"})
+        }
     }
 
     vitaminAmazonLink = () => {
@@ -72,6 +78,38 @@ class VitaminStack extends React.Component  {
           boxOpen: false,
         })
     }
+
+
+    characteristics = () => {
+        const list = []
+        if (this.props.vegan) {
+            list.push('vegan')
+        }
+        if (this.props.pregnant) {
+            list.push('pregnant or trying')
+        }
+        if (this.props.african) {
+            list.push('of African descent')
+        }
+        switch (list.length) {
+            case 1:
+                return list[0]
+            case 2:
+                return list[0] + ' and ' + list[1]
+            case 3:
+                return list[0] + ', ' + list[1] + ' and ' + list[2]
+            
+        }
+            
+    }
+
+    extraSupps = () => {
+        let supps = []
+        if (this.props.african) {supps = [...supps, 'Vitamin D']}
+        if (this.props.vegan) {supps = [...supps, 'Vitamin B12','Iron', 'Calcium']}
+        if (this.props.pregnant) {supps = [...supps, 'Folic acid', 'Vitamin D']}
+        return supps.filter((v, i, a) => a.indexOf(v) === i)
+    }
     
 
 
@@ -82,7 +120,7 @@ class VitaminStack extends React.Component  {
         const {boxOpen, selectedVitamin} = this.state
        
         let num = 1000
-        const checked = onPage('vitaminstack')
+        const checked = onPage('vitamins')
         const images = this.importAll(require.context('../images', true, /^\.\/.*\.(jpg|png|gif)$/))
         const smallCard = {
             background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -101,8 +139,23 @@ class VitaminStack extends React.Component  {
 
              <div className="result-vitamin">
                
-                <h2 id="vitamin">Your Vitamin Stack</h2>
-                <p>Based on your genotype, these are your suggested daily supplements.</p>
+                <h2 id="vitamins">Your Vitamin Stack</h2>
+                {this.props.vegan || this.props.pregnant || this.props.african ? 
+                   <div>
+                        <p>Based on your genotype, these are your suggested daily supplements.</p>
+                        <p>Because you are {this.characteristics()}, we have added the following to your vitamin stack, regardless of your results:</p>
+                        <ul>
+                        {this.extraSupps().map( supp =>
+                            <li>{supp}</li>)}
+                        </ul>
+                        {this.props.pregnant ?
+                            <p>As you are pregnant/trying, we have also removed Vitamin A from your stack, regardless of your results. It is suggested that pregnant women avoid supplementing with Vitamin A as this can be damaging to the baby.</p> 
+                        :
+                        null}
+                    </div>
+                :
+                    <div><p>Based on your genotype, these are your suggested daily supplements.</p></div>
+                }
                 <Button variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
                     
                 <div className="flex-container">

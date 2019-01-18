@@ -13,7 +13,7 @@ class Diet extends Component {
         this.props.getStack().map(vitamin => 
             this.props.vitamins.map(vit => {
                 if (vitamin === vit.name) {
-                    vit.sources.split(',').map(source => {
+                    vit.sources.split(', ').map(source => {
                         if (array.find(val => val.word === source)) {
                             let x = array.findIndex(val => val.word === source) 
                             array[x] = {word: source, value: array[x].value + 1}
@@ -27,7 +27,12 @@ class Diet extends Component {
                  }
             })
         )
-        return array 
+        return this.props.vegan ?
+            array.filter(food => 
+                !['salmon', 'dairy products', 'beef', 'liver', 'milk', 'cheese', 
+                'sardines','meat', 'seafood', 'poultry', 'beef liver', 'mackerel','clams','eggs', 'fortified milk', 'tuna','egg yolks'].includes(food.word))
+        : 
+            array 
     }
 
     windowSize = () => {
@@ -38,13 +43,11 @@ class Diet extends Component {
    render() {
         const num = this.windowSize()
         const {onPage, page} = this.props
-        // let num = 1000
-        const checked = onPage('food')
-
+        const checked = onPage('diet')
         return (
             <div className="result-food">
                 <div className="result-food-container">
-                    <h2>Recommended Foods</h2>
+                    <h2 id="diet">Recommended Foods</h2>
                     {checked ?  
                         <div className="word-cloud">
                             <WordCloud className="words"
@@ -59,7 +62,7 @@ class Diet extends Component {
                                 '#C0C0C0','#523CBD',]}/>
                         </div>
                     :
-                        <div></div>
+                        null
                     }
                 </div>
                 <div id="section08" className="demo">

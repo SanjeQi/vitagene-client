@@ -76,6 +76,10 @@
       font-size: 12px;
     }
   
+    a {
+      color: orange;
+      cursor:pointer;
+    }
 
 
   h1 {
@@ -427,6 +431,34 @@
   color: #fff;
 }
 
+
+
+/* form */
+
+
+
+
+
+legend {
+  font-size:40px;
+  font-family: raleway;
+  letter-spacing: 5px;
+  color: #303f9f
+}
+
+.MuiFormLabel-root-41 {
+  color: #303f9f;
+  letter-spacing: 5px;
+  font-size:5rem !important;
+  font-family: raleway !important;
+}
+.MuiRadio-colorSecondary-60.MuiRadio-checked-57 {
+  color: #f76307 !important;
+}
+.MuiTypography-body1-89 {
+  color: #fff !important;
+  font-family: raleway !important;
+}
 
 
 

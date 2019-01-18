@@ -7,7 +7,6 @@ Vitagene is a genome based web app to get suggestions on your daily supplementat
 These instructions will get you a copy of the project up and running on your local machine.
 
 
-
 ## Installing
 
 ```
@@ -21,6 +20,7 @@ Visit (http://localhost:3002) to view it in the browser.
 ## Built With
 
 [React](https://reactjs.org)
+[Express](https://expressjs.com)
 
 
 ## Authors

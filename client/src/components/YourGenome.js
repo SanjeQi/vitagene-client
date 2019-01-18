@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BarGroup from './BarGroup';
 import logo from '../logo.svg';
 import { Parallax } from 'react-scroll-parallax';
 import CanvasJSReact from '../canvasjs.react'
@@ -44,6 +43,11 @@ class YourGenome extends Component {
     }
     
 
+    componentDidMount(){
+        if (this.props.onPage('genome')) {
+            document.getElementById("genome").scrollIntoView({behavior: "smooth", block: "start"})
+        }
+    }
     addSymbols(e){
         var suffixes = ["", "K", "M", "B"];
         var order = Math.max(Math.floor(Math.log(e.value) / Math.log(1000)), 0);
@@ -61,7 +65,7 @@ class YourGenome extends Component {
 
 
     render () {
-        const {report, onPage} = this.props
+        const {report, onPage,setPage} = this.props
         const checked = onPage('genome')
         const num = this.windowSize()
 
@@ -109,14 +113,20 @@ class YourGenome extends Component {
             color: 'white',
             height: 48,
             padding: '0 30px',
-            // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+            
     };
 
-    return (
+  
 
+
+    return (
+      
         <div className="result-pheno">
-            <h2 name="genome">Your phenotype Results</h2> 
-            <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype. Each nutrient is assigned a score that corresponds to the following: </p>
+        {console.log('here')}
+       
+            <h2 id="genome" name="genome">Your phenotype Results</h2> 
+            <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype.
+                 Each nutrient is assigned a score that corresponds to the following: </p>
             <ul>
                 <li>1 - Lower blood serum level</li> 
                 <li>2 - Slightly lower serum level</li> 
@@ -125,17 +135,18 @@ class YourGenome extends Component {
                 <li>5 - Higher blood serum level</li> 
             </ul>
             <div  className="info-container"> 
-            {/* <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
-                                    mountOnEnter > */}
+            <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
+                                    mountOnEnter > 
                 <CanvasJSChart options ={options}/>
-                {/* </Slide> */}
+             </Slide>
             </div>
             
             <div id="section07" className="demo">
-                <p onClick={() => this.props.scrollTo(num)}><span></span><span></span><span></span>Click to scroll</p>
-            </div>
+                <p onClick={() => {setPage('vitamins')}}><span></span><span></span><span></span>Click to scroll</p>
+            </div>  
         </div>
         )}
+        
 }
 
 
