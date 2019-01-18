@@ -125,7 +125,7 @@ class App extends Component {
                 default:stack.push(i.trait) }
             }
       }
-      return this.state.vegan || this.state.vegan || this.state.vegan ?
+      return this.state.vegan || this.state.pregnant || this.state.african ?
        this.customizeStack(stack) : stack
     }
 
@@ -200,15 +200,15 @@ class App extends Component {
  
    render() {
     
-    const {vitamins,report, connected, checked, page} = this.state
+    const {vitamins,report, connected, checked, page, african, vegan, pregnant} = this.state
     const {onPage, handleChange, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast} = this
     const Container = () => {
       return ( 
       <Fragment>
           <Header handleChange={handleChange} page={page} onPage={onPage} checked={checked} exit={exit} getReport={getReport}/>
           <YourGenome  onPage={onPage} page={page}  setPage={setPage} scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
-          <VitaminStack onPage={onPage} page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
-          <Diet onPage={onPage} scrollToTop={scrollToTop} setPage={setPage} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
+          <VitaminStack african={african} vegan={vegan} pregnant={pregnant} onPage={onPage} page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
+          <Diet onPage={onPage} vegan={vegan} scrollToTop={scrollToTop} setPage={setPage} getStack={getStack} exit={exit} page={page} checked={checked} getScore={getScore} vitamins={vitamins} report={report}/>
       </Fragment>)
   
     }

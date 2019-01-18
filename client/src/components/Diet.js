@@ -13,7 +13,7 @@ class Diet extends Component {
         this.props.getStack().map(vitamin => 
             this.props.vitamins.map(vit => {
                 if (vitamin === vit.name) {
-                    vit.sources.split(',').map(source => {
+                    vit.sources.split(', ').map(source => {
                         if (array.find(val => val.word === source)) {
                             let x = array.findIndex(val => val.word === source) 
                             array[x] = {word: source, value: array[x].value + 1}
@@ -27,7 +27,12 @@ class Diet extends Component {
                  }
             })
         )
-        return array 
+        return this.props.vegan ?
+            array.filter(food => 
+                !['salmon', 'dairy products', 'beef', 'liver', 'milk', 'cheese', 
+                'sardines','meat', 'seafood', 'poultry', 'beef liver', 'mackerel','clams','eggs', 'fortified milk', 'tuna','egg yolks'].includes(food.word))
+        : 
+            array 
     }
 
     windowSize = () => {
