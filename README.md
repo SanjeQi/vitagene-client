@@ -7,8 +7,6 @@ Vitagene is a genome based web app to get suggestions on your daily supplementat
 These instructions will get you a copy of the project up and running on your local machine.
 
 
-
-
 ## Installing
 
 ```
