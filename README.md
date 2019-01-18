@@ -6,10 +6,6 @@ Vitagene is a genome based web app to get suggestions on your daily supplementat
 
 These instructions will get you a copy of the project up and running on your local machine.
 
-##Prerequisites
-
-You will need to download the Rails backend for the API containing all the data about each micronutrients. Go to the [repo](https://github.com/lollypop036/vitagene-server) to install and run the server.
-
 
 
 ## Installing
