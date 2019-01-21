@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
+import loader from './logostraight.png';
 import Header from './components/Header'
 import VitaminStack from './components/VitaminStack'
 import Form from './components/Form'
+import Others from './components/Others'
 import YourGenome from './components/YourGenome'
 import Diet from './components/Diet'
 import { Parallax } from 'react-scroll-parallax'
@@ -29,11 +31,12 @@ class App extends Component {
   
  //Initial Render
   componentDidMount() {
+
     if (!navigator.onLine) {
       this.setState({ vitamins: localStorage.getItem('vitamins') })
     }
     this.getVitamins()
-
+  
     Events.scrollEvent.register('begin', function(to, element) {
       console.log("begin", arguments);
     });
@@ -105,8 +108,16 @@ class App extends Component {
   }
 
   exit = () => {
-    this.setState({ report: null,
-    page: 'splash',  checked: false },  this.props.history.push('/'))
+    this.props.history.push('/')
+    window.location.reload()
+    
+    // localStorage.removeItem('report')
+    // this.setState({ report: null,
+    // page: 'splash',  checked: false })
+    
+    
+  
+     
    
   };
 
@@ -124,11 +135,11 @@ class App extends Component {
 
   getVitamins = () => {
     this.callApi('vitamins')
-    .then(res => this.setState({ vitamins: res.vitamins},localStorage.setItem('vitamins', res)))
+    .then(res => this.setState({ vitamins: res.vitamins, isLoading: false},localStorage.setItem('vitamins', res)))
   }
  
   getReport = () => {
-
+    
     if (!navigator.onLine) {
       this.setState({ report: localStorage.getItem('report') })
     }
@@ -136,7 +147,7 @@ class App extends Component {
     .then(res => this.setState({ report: res.report}))
     .then(this.toggleStackView())
     .then(this.setPage('genome'))
-
+  
   }
 
   getStack = () => {
@@ -191,7 +202,7 @@ class App extends Component {
  
    render() {
     
-    const {vitamins,report, connected, checked, currentPage, african, vegan, pregnant} = this.state
+    const {vitamins,report, connected, checked, currentPage, african, vegan, pregnant, isLoading} = this.state
     const {onPage, handleChange, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast, pageOpen} = this
     const Container = () => {
       return ( 
@@ -214,10 +225,11 @@ class App extends Component {
     }
 
     return (
-  
 
-      <Router>
+    
+      
         <div className="page">
+        <Router>
           <Switch>
             
             {!report ?
@@ -226,14 +238,16 @@ class App extends Component {
               
             :
               <Fragment>
-                <Route path='/result'render={routerProps => <Container {...routerProps} />}  />
+                <Route exact path='/result'render={routerProps => <Container {...routerProps} />}  />
               </Fragment> 
             }
-            <Route component={() => <h3>You are not permitted to view this page.</h3>} />
           
+            <Route component={Others} page={currentPage} report={report}/> } /> 
           </Switch>
+          </Router>
          </div>
-      </Router>
+      
+     
   )
 
 

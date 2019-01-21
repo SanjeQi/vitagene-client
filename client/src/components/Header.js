@@ -1,5 +1,6 @@
-import React,  { Component } from 'react';
+import React,  { Component, Fragment } from 'react';
 import logo from '../logostraight.png';
+import {  Link, Switch, withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import { Parallax } from 'react-scroll-parallax'
 import Form from './Form'
@@ -42,6 +43,7 @@ class Header extends Component {
       <span className={`vitagene-h1`}>
         {'Vitagene'.split('').map((letter, i) => (
           <Parallax
+          id={`letter-${i}`}
             key={`copy-${i}`}
             className="letter"
             offsetXMax={100 * (i - 3)}
@@ -76,13 +78,16 @@ class Header extends Component {
             <div className="splash" name="splash">
               <img src={logo} id="header-logo" className="App-logo" alt="logo" />
               {this.introCopy()}
-              <p>
-                Choosing the right set of vitamins for your daily supplementation can be difficult. With Vitagene you can discover the perfect combination of vitamins and minerals based on your genetic phenotype.
               
-              </p>
               {!form ?
+              <Fragment>
+              <p>
+              Choosing the right set of vitamins for your daily supplementation can be difficult. With Vitagene you can discover the perfect combination of vitamins and minerals based on your genetic phenotype.
+            
+            </p>
                 <Button style={style} variant="contained" onClick={formToggle}>Get started</Button>
-              :
+               
+                </Fragment>:
               <div id="form">
                 <Form handleSubmit={this.handleSubmit} getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={this.handleChange} />
              </div>
@@ -91,20 +96,21 @@ class Header extends Component {
       
         : 
       
-         (page !== 'end' ? 
+         ( 
             <div className="splash-report">
               <img src={logo} className="App-logo" alt="logo"/>
               {this.introCopy()}
-            </div>
-         :
-          <div className="splash-report">
-              <img src={logo} className="App-logo" alt="logo"  name="end" />
-              {this.introCopy()}
-              <br/>
-              <Button style={style} variant="contained" onClick={() => {exit()}}>
+              <br />
+              {page === 'end' ?
+               <Fragment>
+                  <Button style={style} variant="contained" onClick={() => {exit()}}>
                 Exit?
               </Button>
-            </div>)
+             
+            </Fragment>
+              :
+           null}
+           </div>)
 
           }
         </div>

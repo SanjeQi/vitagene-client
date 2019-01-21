@@ -45,7 +45,7 @@ class YourGenome extends Component {
 
     componentDidMount(){
         if (this.props.onPage('genome')) {
-            document.getElementById("genome").scrollIntoView({behavior: "smooth", block: "start"})
+            setTimeout(() => document.getElementById("genome").scrollIntoView({behavior: "smooth", block: "start"}), 300)
         }
     }
     addSymbols(e){
@@ -122,7 +122,6 @@ class YourGenome extends Component {
     return (
       
         <div className="result-pheno">
-        {console.log('here')}
        
             <h2 id="genome" name="genome">Your phenotype Results</h2> 
             <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype.

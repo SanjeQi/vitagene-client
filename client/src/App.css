@@ -13,14 +13,7 @@
   height: 40vmin;
 }
 
-.load {
-  animation: App-logo-spin infinite 1s linear;
-  height: 10vmin;
-  margin: 0 auto;
-  padding: 20%;
-  width: 10vmin;
-  /* display: none; */
-}
+
 
 .App-header {
   background-color: #282c34;
@@ -68,12 +61,12 @@
       text-decoration: none;
       text-align: left;
       color: #fff;
-      font-size: 12px;
+      font-size: 20px;
     }
 
     p {
       color: #fff;
-      font-size: 12px;
+      font-size: 20px;
     }
   
     a {
@@ -95,6 +88,7 @@
     padding-top: 3%;
     font-weight: 300;
     letter-spacing: 20px;
+    font-size: 45px;
   }
 
   /* h3 {
@@ -164,6 +158,12 @@
 
 .letter {
   display: inline-block;
+  
+}
+
+#letter-1 {
+
+  letter-spacing: 100px
 }
 
 
@@ -181,7 +181,7 @@
 
 .result-vitamin {
   position: relative;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 5% 10%;
 
   /* float: left; */
@@ -303,6 +303,7 @@
 
 #section07 p {
   padding-top: 80px;
+
 }
 #section07 p span {
   position: absolute;
@@ -329,9 +330,6 @@
   top: 32px;
   animation-delay: .3s;
 }
-
-
-
 
 #section08 p {
   padding-top: 80px;
@@ -402,23 +400,33 @@
   padding: 0;
 }
 
+.flex-child h1 {
+  padding: 0;
+  letter-spacing: 0;
+  margin: 0;
+  font-size: 60px;
+}
+
 .vitamin-info h4 {
   text-align: left;
-  padding: 0 ;
+  padding-bottom: 2% ;
   margin: 0 ;
-  font-size: 30px;
+  font-size: 2rem;
   color: #fff;
 }
 
 .vitamin-info h5 {
   text-align: left;
   padding: 0;
+  font-size: 1rem;
   margin: 0;
   color: #fff;
 }
 
 .vitstructure {
-  height: 10vmin;
+  /* height: 10vmin; */
+  width: 10vmin;
+  min-height:10vmin
  
 }
 
@@ -431,6 +439,31 @@
 }
 
 
+.loading-screen h2 {
+  padding-top: 60%;
+  text-align:center;
+}
+
+
+
+.loading-screen-container {
+  height:100vh;
+  margin-top: -10%;
+  padding-bottom:25%;
+  width:100%;
+  background: -webkit-linear-gradient(to bottom, #24c6dc, #514a9d); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #24c6dc, #514a9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.load {
+  animation: App-logo-spin infinite 1s linear;
+  height: 10vmin;
+  margin: 0 auto;
+ 
+  width: 10vmin;
+
+}
 
 /* form */
 
@@ -459,11 +492,17 @@
   font-family: raleway !important;
 }
 
-/* .slider {
-  padding: 4% important!;
-} */
+.slider {
+  padding: 4% !important;
+}
 
-
+.form p {
+  text-align: left;
+}
+.form h2 {
+  
+  font-size: 30px;
+}
 
 
 /* responsive css */
@@ -482,36 +521,55 @@
   h2 {
     letter-spacing: 5px;
     text-align: left;
+    font-size: 30px;
   }
 
   p {
     text-align: left;
+    font-size: 15px
   }
 
   .vitstructure {
     display: none;
   }
 
+  .flex-container {
+    text-align: left;
+    padding-left: 0;
+    margin: 0;
+  }
+
   .flex-child {
     height: 15%;
-    width: 15%;
+    width: 30%;
   }
 
   .flex-child h3 {
     text-align: left;
     /* padding-bottom: 10%; */
     margin: 0;
-    font-size: 60%;
+    font-size: 80%;
     color: #fff;
+    font-weight:400;
 }
 
-.word-cloud {
-  
-  animation: 1s ease-out 0s 1 wordspread;
-  width: 90%;
-  padding-top: 5%;
- 
+.link-btn {
+  font-size: 5px;
+  letter-spacing:1px;
 }
+
+
+
+.flex-child h1 {
+ text-align:left;
+  font-size: 30px;
+}
+
+
+
+
+
+
 
 
 
@@ -524,7 +582,7 @@
 
 .demo {
   padding-top: 5%;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   width: 150%;}
 
@@ -540,6 +598,13 @@
     animation: sdb08 1s infinite;
   }
 
+  .vitamin-info {
+    padding-bottom: 10%
+  }
+
+  /* #section07 {
+    padding-top: 30%;
+  } */
   #section07 p {
     padding-top: 50px;
     
@@ -554,6 +619,13 @@
 
   .splash p {
     text-align: center;
+    font-size: 18px;
+    padding-top: 15%;
+    /* padding-bottom: 25%; */
+  }
+
+  .splash h2 {
+    padding-left: 5%;
   }
 
   .result-vitamin {
@@ -565,13 +637,26 @@
   
   }
 
+  li {
+    font-size: 14px;
+  }
+
   .MuiFormLabel-root-41 {
     color: #303f9f;
     letter-spacing: 5px;
+    text-align: left;
     font-size:2rem !important;
     font-family: raleway !important;
     
   }
+
+
+.word-cloud {
+  animation: 1s ease-out 0s 1 wordspread;
+  width: 90%;
+  padding-top: 5%;
+ 
+}
 
 
 }

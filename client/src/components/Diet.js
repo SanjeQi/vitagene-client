@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { WordCloud } from "word-cloud-react";
-
+import {  Link, Switch, withRouter } from 'react-router-dom'
 import { Parallax } from 'react-scroll-parallax'
 import Slide from '@material-ui/core/Slide';
 
@@ -73,4 +73,4 @@ class Diet extends Component {
    }
  }
 
-export default  Diet;
+export default Diet;

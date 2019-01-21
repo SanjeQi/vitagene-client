@@ -30,13 +30,13 @@ class Form extends Component {
     const {handleChange, handleSubmit} = this.props
 
     const content =  [{
-      question: 'Are you vegan?',
+      question: 'vegan?',
       label: 'vegan'
     },
-    { question: 'Are you of African descent?',
+    { question: 'of African descent?',
       label: 'african'
     },
-    { question: 'Are you pregnant or trying?',
+    { question: 'pregnant or trying?',
       label: 'pregnant'
     }]
 
@@ -50,15 +50,13 @@ class Form extends Component {
           <br />
           <a onClick={handleSubmit}>skip</a>
         </p>
-      
-        <Slider  ref={slider => (this.slider = slider)} {...settings}>
-
+       <h2>Are you...</h2>
+        <Slider ref={slider => (this.slider = slider)} {...settings}>
           {content.map(question =>
 
             <div className="slider">
               <FormControl component="fieldset">
                 <FormLabel component="legend">{question.question}</FormLabel>
-
                 <RadioGroup
                 aria-label={question.label}
                 name={question.label}
@@ -70,10 +68,7 @@ class Form extends Component {
                 </RadioGroup>
             </FormControl>
             </div>
-
-
             )}
-
           </Slider> 
        </div>
        </Zoom>

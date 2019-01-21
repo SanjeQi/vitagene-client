@@ -122,17 +122,28 @@ class VitaminStack extends React.Component  {
         let num = 1000
         const checked = pageOpen('vitamins')
         const images = this.importAll(require.context('../images', true, /^\.\/.*\.(jpg|png|gif)$/))
+
         const smallCard = {
-            background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+            // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+            background: 'rgba(0, 0, 0, 0.38)',
+            boxShadow: 'none'
+            
         };
 
         const bigCard = {
-            background: 'rgba(71, 177, 172, 0.75)',
+            background: 'rgba(71, 177, 172, 0.3)',
+            boxShadow: 'none',
+            width: '100%'
         };
 
         const link = {
-            color: 'black',
+            color: 'white',
             fontSize: '9px'
+        }
+        
+        const buy = {
+            background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+            boxShadow: 'none'
         }
 
         return (
@@ -156,24 +167,23 @@ class VitaminStack extends React.Component  {
                 :
                     <div><p>Based on your genotype, these are your suggested daily supplements.</p></div>
                 }
-                <Button variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
+                <Button style={buy} variant="contained" color="primary" onClick={this.goToBasket}>Purchase vitamin stack</Button>
                     
                 <div className="flex-container">
                     {getStack().map(vitamin => 
                         
                         <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
                             {...{ timeout: num+=300 } } mountOnEnter >
-                            {/* <div onClick={()=> this.expandInfo(vitamin) } className="flex-child"> 
-                                <img className="vitstructure" src={images[`${getVitaminInfo(vitamin).image}`]} alt={`chemical structure of ${getVitaminInfo(vitamin).name}`} />
-                            </div> */}
+                          
                             <Card style={smallCard} className="flex-child">
                                 <h3>{vitamin}</h3>
-                                <img className="vitstructure" src={images[`${getVitaminInfo(vitamin).image}`]} alt={`chemical structure of ${getVitaminInfo(vitamin).name}`} />
+                                {/* <img className="vitstructure" src={images[`${getVitaminInfo(vitamin).image}`]} alt={`chemical structure of ${getVitaminInfo(vitamin).name}`} /> */}
+                                <h1>{getVitaminInfo(vitamin).symbol}</h1>
                                 <CardActions>
                                     {boxOpen && selectedVitamin === vitamin ?
-                                        <Button style={link} onClick={this.closeBox}  size="small">Close</Button>
+                                        <Button className="link-btn" style={link} onClick={this.closeBox}  size="small">Close</Button>
                                         :
-                                        <Button style={link} onClick={()=> this.expandInfo(vitamin) }  size="small">Learn More</Button>
+                                        <Button className="link-btn" style={link} onClick={()=> this.expandInfo(vitamin) }  size="small">Learn More</Button>
                                     }
                                 </CardActions>
                             </Card>   
@@ -192,7 +202,7 @@ class VitaminStack extends React.Component  {
                             <p>{getVitaminInfo(selectedVitamin).benefits}</p>
                             <h5>Deficiency issues</h5>
                             <ul>{getVitaminInfo(selectedVitamin).deficiency.split(',').map(deficiency =>
-                                <li>{deficiency}</li>)} 
+                                <li>+ {deficiency}</li>)} 
                             </ul>
                         
                         <CardActions>
@@ -200,21 +210,14 @@ class VitaminStack extends React.Component  {
                         </CardActions>
                     </Card>
                             
-                        {/* <div onClick={this.closeBox} className="vitamin-info">
-                            <h3>{selectedVitamin}</h3>
-                            <p>RDA: {getVitaminInfo(selectedVitamin).rda}</p>             
-                            <p>{getVitaminInfo(selectedVitamin).benefits}</p>
-                            <ul>{getVitaminInfo(selectedVitamin).deficiency.split(',').map(deficiency =>
-                                <li>{deficiency}</li>)} 
-                            </ul>
-                        </div> */}
+                       
                         </Zoom>
                     :
                         null
                     }
                     <br />
                     <br />
-                   
+                    <br />
                      <div id="section07" className="demo">
                         <p onClick={this.props.scrollToLast} ><span></span><span></span><span></span>Click to scroll</p>
                     </div>
