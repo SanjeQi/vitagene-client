@@ -70,7 +70,7 @@ class YourGenome extends Component {
         const num = this.windowSize()
 
         const options = {
-            animationEnabled: true,
+            animationEnabled: onPage('genome'),
             animationDuration: 2000,
             backgroundColor: "rgba(255,0,0,0)",
             colorSet:  "colorSet2",
