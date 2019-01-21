@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import logo from './LogoMakr_7sWE81.png';
 import './App.css';
 import Header from './components/Header'
 import VitaminStack from './components/VitaminStack'
@@ -23,7 +22,8 @@ class App extends Component {
     african: false, 
     vegan: false,
     pregnant: false,
-    page: 'splash'
+    currentPage: 'splash',
+    openPages: []
   }
 
   
@@ -83,13 +83,23 @@ class App extends Component {
 
   // PAGE TRANSITION FUNCTIONS
   setPage = (pg) => {
-    this.setState({page:pg})
+    this.setState({
+      currentPage: pg,
+      openPages:[...this.state.openPages,pg]
+    })
+  
   }
 
+
+
   onPage = (pg) => {
-    return this.state.page === pg ? true : false
+    return this.state.currentPage === pg ? true : false
   }
- 
+
+  pageOpen = (pg) => {
+      return this.state.openPages.includes(pg) ? true : false
+  }
+
   toggleStackView = () => {
     this.setState({ checked: !this.state.checked });
   }
@@ -181,23 +191,23 @@ class App extends Component {
  
    render() {
     
-    const {vitamins,report, connected, checked, page, african, vegan, pregnant} = this.state
-    const {onPage, handleChange, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast} = this
+    const {vitamins,report, connected, checked, currentPage, african, vegan, pregnant} = this.state
+    const {onPage, handleChange, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast, pageOpen} = this
     const Container = () => {
       return ( 
       <Fragment>
-          <Header handleChange={handleChange} page={page} onPage={onPage}
-           checked={checked} exit={exit} getReport={getReport}/>
+          <Header handleChange={handleChange} page={currentPage} onPage={onPage}
+           checked={checked} exit={exit} getReport={getReport} />
 
-          <YourGenome  onPage={onPage} page={page}  setPage={setPage}
+          <YourGenome  onPage={onPage} page={currentPage} pageOpen={pageOpen}  setPage={setPage}
            scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
 
           <VitaminStack african={african} vegan={vegan} pregnant={pregnant} onPage={onPage} 
-          page={page} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} 
+          page={currentPage} pageOpen={pageOpen} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} 
           getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
 
           <Diet onPage={onPage} vegan={vegan} scrollToTop={scrollToTop} setPage={setPage}
-           getStack={getStack} exit={exit} page={page} checked={checked} 
+           getStack={getStack} exit={exit} page={currentPage} pageOpen={pageOpen} checked={checked} 
            getScore={getScore} vitamins={vitamins} report={report}/>
       </Fragment>)
   
@@ -211,8 +221,8 @@ class App extends Component {
           <Switch>
             
             {!report ?
-              <Route exact path='/' render={routerProps => <Header {...routerProps} page={page} checked={checked} 
-              exit={exit} getReport={getReport} handleChange={handleChange} onPage={onPage} />} />
+              <Route exact path='/' render={routerProps => <Header {...routerProps} page={currentPage} checked={checked} 
+              exit={exit} getReport={getReport} handleChange={handleChange} scrollToForm={scrollToBottom} onPage={onPage} />} />
               
             :
               <Fragment>

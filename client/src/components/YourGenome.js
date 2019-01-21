@@ -65,8 +65,8 @@ class YourGenome extends Component {
 
 
     render () {
-        const {report, onPage,setPage} = this.props
-        const checked = onPage('genome')
+        const {report, onPage,setPage, pageOpen} = this.props
+        const checked = pageOpen('genome')
         const num = this.windowSize()
 
         const options = {
@@ -136,7 +136,7 @@ class YourGenome extends Component {
             </ul>
             <div  className="info-container"> 
             <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
-                                    mountOnEnter > 
+                                     > 
                 <CanvasJSChart options ={options}/>
              </Slide>
             </div>

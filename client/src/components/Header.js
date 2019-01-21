@@ -14,8 +14,16 @@ class Header extends Component {
     form: false
   }
  
+  componentDidMount() {
+    if (this.state.form) {
+      document.getElementById("form").scrollIntoView({behavior: "smooth", block: "end"})
+    }
+  }
   formToggle = () => {
     this.setState({form: !this.state.form})
+    if (this.state.form) {
+     this.props.scrollToForm()
+    }
   }
 
   handleChange = (event) => {
@@ -51,8 +59,10 @@ class Header extends Component {
     const {checked, getReport, page, exit} = this.props
     const {african, vegan, pregnant, form} = this.state
     const style = {
-       background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+       background: 'linear-gradient(-180deg, rgb(241, 155, 67) 30%, rgb(255, 142, 83) 60%)',
       borderRadius: 3,
+      fontSize: '1rem',
+      fontFamily: 'raleway 600',
       border: 0,
       color: 'white',
       height: 48,
@@ -73,7 +83,9 @@ class Header extends Component {
               {!form ?
                 <Button style={style} variant="contained" onClick={formToggle}>Get started</Button>
               :
+              <div id="form">
                 <Form handleSubmit={this.handleSubmit} getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={this.handleChange} />
+             </div>
               }
             </div>
       

@@ -115,12 +115,12 @@ class VitaminStack extends React.Component  {
 
     render () {
         this.vitaminAmazonLink()
-        const {onPage, page, getStack, getScore} = this.props
+        const {onPage, pageOpen, page, getStack, getScore} = this.props
         const {getVitaminInfo} = this
         const {boxOpen, selectedVitamin} = this.state
        
         let num = 1000
-        const checked = onPage('vitamins')
+        const checked = pageOpen('vitamins')
         const images = this.importAll(require.context('../images', true, /^\.\/.*\.(jpg|png|gif)$/))
         const smallCard = {
             background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -162,7 +162,7 @@ class VitaminStack extends React.Component  {
                     {getStack().map(vitamin => 
                         
                         <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
-                            {...{ timeout: num+=300 } } mountOnEnter unmountOnExit>
+                            {...{ timeout: num+=300 } } mountOnEnter >
                             {/* <div onClick={()=> this.expandInfo(vitamin) } className="flex-child"> 
                                 <img className="vitstructure" src={images[`${getVitaminInfo(vitamin).image}`]} alt={`chemical structure of ${getVitaminInfo(vitamin).name}`} />
                             </div> */}
@@ -210,7 +210,7 @@ class VitaminStack extends React.Component  {
                         </div> */}
                         </Zoom>
                     :
-                        <div></div>
+                        null
                     }
                     <br />
                     <br />

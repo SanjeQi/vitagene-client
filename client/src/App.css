@@ -92,8 +92,7 @@
 
   h2 {
     color: white;
-    
-   
+    padding-top: 3%;
     font-weight: 300;
     letter-spacing: 20px;
   }
@@ -439,12 +438,12 @@
 
 
 
-legend {
+/* legend {
   font-size:40px;
   font-family: raleway;
   letter-spacing: 5px;
   color: #303f9f
-}
+} */
 
 .MuiFormLabel-root-41 {
   color: #303f9f;
@@ -459,6 +458,10 @@ legend {
   color: #fff !important;
   font-family: raleway !important;
 }
+
+/* .slider {
+  padding: 4% important!;
+} */
 
 
 
@@ -562,6 +565,13 @@ legend {
   
   }
 
+  .MuiFormLabel-root-41 {
+    color: #303f9f;
+    letter-spacing: 5px;
+    font-size:2rem !important;
+    font-family: raleway !important;
+    
+  }
 
 
 }
