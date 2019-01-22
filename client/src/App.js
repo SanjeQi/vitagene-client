@@ -1,17 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
-import loader from './logostraight.png';
 import Header from './components/Header'
 import VitaminStack from './components/VitaminStack'
-import Form from './components/Form'
 import Others from './components/Others'
 import YourGenome from './components/YourGenome'
 import Diet from './components/Diet'
-import { Parallax } from 'react-scroll-parallax'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import {  Link, Switch, withRouter } from 'react-router-dom'
-import * as Scroll from 'react-scroll';
-import {  Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import {  Switch, withRouter } from 'react-router-dom'
+import {  Events, animateScroll as scroll, scrollSpy } from 'react-scroll'
  
 
 class App extends Component {
@@ -20,7 +16,6 @@ class App extends Component {
 
     report: null,
     vitamins: null,
-    checked: false,
     african: false, 
     vegan: false,
     pregnant: false,
@@ -61,27 +56,14 @@ class App extends Component {
     scroll.scrollToTop();
     this.setPage('end')
   }
-  scrollToBottom =  () => {
-    scroll.scrollToBottom()
 
-    
-  }
-  scrollTo =  (x) => {
-    scroll.scrollTo(x);
-    this.setPage('vitaminstack')
-  }
-  scrollMore =  () => {
-    scroll.scrollMore(100);
-    
-  }
-  handleSetActive = (to) => {
-    console.log(to);
+  scrollToBottom =  () => {
+    scroll.scrollToBottom()   
   }
 
   scrollToLast =  () => {
     scroll.scrollToBottom();
     this.setPage('diet')
-    
   }
 
   // PAGE TRANSITION FUNCTIONS
@@ -93,8 +75,6 @@ class App extends Component {
   
   }
 
-
-
   onPage = (pg) => {
     return this.state.currentPage === pg ? true : false
   }
@@ -103,22 +83,10 @@ class App extends Component {
       return this.state.openPages.includes(pg) ? true : false
   }
 
-  toggleStackView = () => {
-    this.setState({ checked: !this.state.checked });
-  }
 
   exit = () => {
     this.props.history.push('/')
     window.location.reload()
-    
-    // localStorage.removeItem('report')
-    // this.setState({ report: null,
-    // page: 'splash',  checked: false })
-    
-    
-  
-     
-   
   };
 
   
@@ -129,25 +97,22 @@ class App extends Component {
     const response = await fetch(`/api/${item}`);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
-    console.log(body)
     return body;
   };
 
   getVitamins = () => {
     this.callApi('vitamins')
-    .then(res => this.setState({ vitamins: res.vitamins, isLoading: false},localStorage.setItem('vitamins', res)))
+    .then(res => this.setState({ vitamins: res.vitamins, isLoading: false},
+    localStorage.setItem('vitamins', res)))
   }
  
   getReport = () => {
-    
     if (!navigator.onLine) {
       this.setState({ report: localStorage.getItem('report') })
     }
     this.callApi('report')
     .then(res => this.setState({ report: res.report}))
-    .then(this.toggleStackView())
     .then(this.setPage('genome'))
-  
   }
 
   getStack = () => {
@@ -160,6 +125,7 @@ class App extends Component {
               case "Folate":
               stack.push("Folic acid");
               break;
+              
               default:stack.push(i.trait) }
           }
     }
@@ -202,57 +168,46 @@ class App extends Component {
  
    render() {
     
-    const {vitamins,report, connected, checked, currentPage, african, vegan, pregnant, isLoading} = this.state
-    const {onPage, handleChange, getStack, getScore, getReport, scrollTo, scrollToTop, setPage, exit, scrollToBottom, scrollToLast, pageOpen} = this
+    const {vitamins,report, currentPage, african, vegan, pregnant} = this.state
+    const {onPage, handleChange, getStack, getScore, getReport, scrollToTop, setPage, exit, scrollToBottom, scrollToLast, pageOpen} = this
     const Container = () => {
       return ( 
-      <Fragment>
+        <Fragment>
           <Header handleChange={handleChange} page={currentPage} onPage={onPage}
-           checked={checked} exit={exit} getReport={getReport} />
+           exit={exit} getReport={getReport} />
 
           <YourGenome  onPage={onPage} page={currentPage} pageOpen={pageOpen}  setPage={setPage}
-           scrollTo={scrollTo}  getScore={getScore} getStack={getStack} report={report}/>
+          report={report}/>
 
           <VitaminStack african={african} vegan={vegan} pregnant={pregnant} onPage={onPage} 
-          page={currentPage} pageOpen={pageOpen} setPage={setPage} scrollTo={scrollTo} scrollToLast={scrollToLast} 
-          getScore={getScore} getStack={getStack} checked={checked} vitamins={vitamins} report={report}/>
+          page={currentPage} pageOpen={pageOpen} scrollToLast={scrollToLast} 
+         getStack={getStack} vitamins={vitamins} report={report}/>
 
-          <Diet onPage={onPage} vegan={vegan} scrollToTop={scrollToTop} setPage={setPage}
-           getStack={getStack} exit={exit} page={currentPage} pageOpen={pageOpen} checked={checked} 
-           getScore={getScore} vitamins={vitamins} report={report}/>
-      </Fragment>)
-  
+          <Diet vegan={vegan} scrollToTop={scrollToTop} 
+           getStack={getStack} page={currentPage} pageOpen={pageOpen} 
+           getScore={getScore} vitamins={vitamins}/>
+        </Fragment>
+      )
     }
 
     return (
-
-    
-      
-        <div className="page">
+      <div className="page">
         <Router>
           <Switch>
-            
             {!report ?
-              <Route exact path='/' render={routerProps => <Header {...routerProps} page={currentPage} checked={checked} 
+              <Route exact path='/' render={routerProps => <Header {...routerProps} page={currentPage}  
               exit={exit} getReport={getReport} handleChange={handleChange} scrollToForm={scrollToBottom} onPage={onPage} />} />
-              
             :
               <Fragment>
                 <Route exact path='/result'render={routerProps => <Container {...routerProps} />}  />
               </Fragment> 
             }
-          
-            <Route component={Others} page={currentPage} report={report}/> } /> 
+            <Route component={Others}/>
           </Switch>
           </Router>
          </div>
-      
-     
-  )
-
-
-   
-   }
+    )
+  }
  }
 
 export default withRouter(App);

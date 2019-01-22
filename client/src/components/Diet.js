@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-
 import { WordCloud } from "word-cloud-react";
-import {  Link, Switch, withRouter } from 'react-router-dom'
-import { Parallax } from 'react-scroll-parallax'
-import Slide from '@material-ui/core/Slide';
+
 
 class Diet extends Component {
 
@@ -42,13 +39,13 @@ class Diet extends Component {
  
    render() {
         const num = this.windowSize()
-        const {onPage, page, pageOpen} = this.props
-        const checked = pageOpen('diet')
+        const {pageOpen, scrollToTop} = this.props
+       
         return (
             <div className="result-food">
                 <div className="result-food-container">
                     <h2 id="diet">Recommended Foods</h2>
-                    {checked ?  
+                    {pageOpen('diet') ?  
                         <div className="word-cloud">
                             <WordCloud className="words"
                                 width={"auto"} 
@@ -56,7 +53,6 @@ class Diet extends Component {
                                 minFont={16} 
                                 logFunc={(x)=> Math.log2(x) * num} 
                                 data={this.generateFoodMap()} 
-                                clickEvent={(x)=>console.log(x.word)} 
                                 color={['#71803F', '#F8AC1D','#598EC0','#E2543E','#1A3051','#F46F73',
                                 '#8A87BB','#56CFCD','#297373','#FF8552','#F2E863','#C2F8CB','#FF6700',
                                 '#C0C0C0','#523CBD',]}/>
@@ -66,7 +62,7 @@ class Diet extends Component {
                     }
                 </div>
                 <div id="section08" className="demo">
-                    <p onClick={this.props.scrollToTop} ><span></span><span></span><span></span>Back to top</p>
+                    <p onClick={scrollToTop} ><span></span><span></span><span></span>Back to top</p>
                 </div>
             </div>
         );

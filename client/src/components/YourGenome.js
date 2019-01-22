@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import { Parallax } from 'react-scroll-parallax';
 import CanvasJSReact from '../canvasjs.react'
-import Button from '@material-ui/core/Button'
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import Slide from '@material-ui/core/Slide';
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+const CanvasJS = CanvasJSReact.CanvasJS;
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
 class YourGenome extends Component {
@@ -16,21 +11,22 @@ class YourGenome extends Component {
         switch (vitamin.score) {
             case 0:
             return 'Lower blood serum level'
-            break;
+            
             case 1:
             return  'Slightly lower serum level'
-            break;
+          
             case 2:
             return 'Intermediate'
-            break;
+        
             case 3:
             return 'Slightly higher serum level'
-            break;
+           
             case 4:
-            return 'Higher blood serum level'
-            break;
+            return 'Higher blood serum level'   
+            
+            default:
+            return 'n/a'
         }
-
     }
 
 
@@ -48,27 +44,23 @@ class YourGenome extends Component {
             setTimeout(() => document.getElementById("genome").scrollIntoView({behavior: "smooth", block: "start"}), 300)
         }
     }
+
     addSymbols(e){
-        var suffixes = ["", "K", "M", "B"];
+        let suffixes = ["", "K", "M", "B"];
         var order = Math.max(Math.floor(Math.log(e.value) / Math.log(1000)), 0);
-        if(order > suffixes.length - 1)
+        if (order > suffixes.length - 1)
             order = suffixes.length - 1;
-        var suffix = suffixes[order];
+        let suffix = suffixes[order];
         return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
     }
 
-    windowSize = () => {
-        const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-        return width > 768 ? 2200 : 1650
-    }
     
 
 
     render () {
-        const {report, onPage,setPage, pageOpen} = this.props
-        const checked = pageOpen('genome')
-        const num = this.windowSize()
-
+        const {onPage,setPage, pageOpen} = this.props
+        const {addSymbols, populateChart} = this
+        
         const options = {
             animationEnabled: onPage('genome'),
             animationDuration: 2000,
@@ -90,7 +82,7 @@ class YourGenome extends Component {
             },
             axisY: {
                 title: "Typical blood serum concentration for your genotype (0-4)",
-                labelFormatter: this.addSymbols,
+                labelFormatter: addSymbols,
                 labelFontFamily: "raleway",
                 labelFontColor: "white",
                 titleFontFamily: "raleway",
@@ -99,31 +91,16 @@ class YourGenome extends Component {
             },
             data: [{
                 type: "bar",
-                dataPoints: [...this.populateChart()]
-        }]
-    }
+                dataPoints: [...populateChart()]
+            }]
+        }
 
 
 
-    const style = {
-        
-
-            borderRadius: 3,
-            border: '1px solid white',
-            color: 'white',
-            height: 48,
-            padding: '0 30px',
-            
-    };
-
-  
-
-
-    return (
+        return (
       
         <div className="result-pheno">
-       
-            <h2 id="genome" name="genome">Your phenotype Results</h2> 
+            <h2 id="genome" name="genome">Your Phenotype Results</h2> 
             <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype.
                  Each nutrient is assigned a score that corresponds to the following: </p>
             <ul>
@@ -134,10 +111,9 @@ class YourGenome extends Component {
                 <li>5 - Higher blood serum level</li> 
             </ul>
             <div  className="info-container"> 
-            <Slide  direction="down" in={checked}  style={{ transformOrigin: '0 0 0' }}
-                                     > 
-                <CanvasJSChart options ={options}/>
-             </Slide>
+                <Slide direction="down" in={pageOpen('genome')}  style={{ transformOrigin: '0 0 0' }}> 
+                    <CanvasJSChart options ={options}/>
+                </Slide>
             </div>
             
             <div id="section07" className="demo">

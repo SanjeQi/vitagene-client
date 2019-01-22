@@ -14,7 +14,14 @@ app.get('/api/vitamins', (req, res) => {
     res.send({ vitamins: [...vitamins()] });
   });
 
-
+  if (process.env.NODE_ENV === 'production') {
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    // Handle React routing, return all requests to React app
+    app.get('*', function(req, res) {
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+  }
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -88,7 +95,7 @@ const vitamins = () => {
           rda: "400 mcg DFE",
           code: "B00MX2H11E",
           benefits: "Folate is a B-vitamin that is naturally present in many foods. Your body needs folate to make DNA synthesis. A more bioavailable form of folate, folic acid, is used in fortified foods and most dietary supplements.",
-          deficiency: "weakness, fatigue, trouble concentrating, irritability, headache, heart palpitations, shortness of breath, open sores on the tongue and inside the mouth, changes in the color of the skin, hair, or fingernails, in women -  risk of having babies with neural tube defects such as spina bifida",
+          deficiency: "weakness, fatigue, trouble concentrating, irritability, headache, heart palpitations, shortness of breath, open sores on the tongue and inside the mouth, changes in the color of the skin hair or fingernails, in women -  risk of having babies with neural tube defects such as spina bifida",
           toxicity: "can hide a vitamin B12 deficiency by correcting anaemia whilst worsening the issue",
           symbol: "B9"
         },
@@ -143,7 +150,7 @@ const vitamins = () => {
           rda: "15 mg",
           code: "B001RU8VJE",
           benefits: "Vitamin E acts as an antioxidant, helping to protect cells from the damage caused by free radicals. It also assists with vasodilation.",
-          deficiency: "(very rare), nerve and muscle damage, loss of body movement control, muscle weakness, vision problems, weakened immune system",
+          deficiency: "nerve and muscle damage, loss of body movement control, muscle weakness, vision problems, weakened immune system",
           toxicity: "increased risk of bleeding, increased risk for hemorrhagic stroke",
           symbol: "E"
         }
