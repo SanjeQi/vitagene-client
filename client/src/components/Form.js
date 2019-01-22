@@ -12,7 +12,12 @@ import Button from '@material-ui/core/Button';
 
 class Form extends Component {
 
-  
+  componentDidMount() {
+    
+      document.getElementById("form").scrollIntoView({behavior: "smooth", block: "start"})
+    
+  }
+
    render() {
 
     const settings = {
@@ -45,10 +50,29 @@ class Form extends Component {
       padding: 0,
       margin: 0
     }
+const formLabel = {
+    
+      color: '#303f9f',
+      letterSpacing: '5px',
+      fontSize:'5rem',
+      fontFamily: 'raleway',
+    }
+
+   const radiob = {
+    color: '#fff',
+    fontFamily: 'raleway'
+    }
+
+    const text = {
+      color: 'rgba(252, 150, 88, 0.5)',
+      fontFamily: 'raleway'
+    }
+      
+
 
     return (
       <Zoom in={true} style={{ transitionDelay: '200ms'}}>
-        <div className="form">
+        <div id="form" className="form">
           <p>A few optional questions to further personalize your results..
             <br />
             <br />
@@ -59,14 +83,15 @@ class Form extends Component {
             {content.map(question =>
               <div className="slider">
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">{question.question}</FormLabel>
+                  <FormLabel style={formLabel} component="legend">{question.question}</FormLabel>
                   <RadioGroup
                   aria-label={question.label}
+                  style={radiob}
                   name={question.label}
                   onChange={(event) => {handleChange(event);
                     this.slider.slickNext()}}>
-                  <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                  <FormControlLabel value="no" control={<Radio />} label="No" />
+                  <FormControlLabel  value="yes" control={<Radio style={text} />} className="MuiTypography-body1-89" label="Yes" />
+                  <FormControlLabel style={radiob} value="no" control={<Radio style={text}/>} label="No" />
                   </RadioGroup>
               </FormControl>
               </div>

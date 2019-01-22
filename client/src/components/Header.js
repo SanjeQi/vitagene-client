@@ -13,11 +13,6 @@ class Header extends Component {
     form: false
   }
  
-  componentDidMount() {
-    if (this.state.form) {
-      document.getElementById("form").scrollIntoView({behavior: "smooth", block: "end"})
-    }
-  }
 
   formToggle = () => {
     this.setState({form: !this.state.form})
@@ -82,15 +77,15 @@ class Header extends Component {
                 <Fragment>
                   <p>
                     Choosing the right set of vitamins for your daily supplementation can be difficult. 
-                    <br />
+                    <br /><br />
                     With Vitagene you can discover the perfect combination of vitamins and minerals based on your genetic phenotype. 
-                    <br />
-                    Simply connect with your 23andMe account. 
+                    <br /><br />
+                    Simply connect your 23andMe account. 
                   </p>
                   <Button style={style} variant="contained" onClick={formToggle}>Get started</Button>
                 </Fragment>
               :
-                <div id="form">
+                <div>
                   <Form handleSubmit={handleSubmit} getReport={getReport} vegan={vegan} african={african} pregnant={pregnant} handleChange={handleChange} />
               </div>
               }

@@ -1,12 +1,17 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   width: 100%;
+}
+
+.page {
+  min-width: 100%;
 }
 
 #root  {
  
   width: 100%;
 }
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -174,8 +179,8 @@
 .result-pheno {
   position: relative;
   background-color:#514A9D;
-  height:100vh;
-  padding: 5% 10%;
+  /* height:100vh; */
+  padding: 0% 10%;
    font-size: 14px;
 }
 
@@ -191,7 +196,7 @@
 .result-food {
   position: relative;
   background-color:#4d267a;
-  height:  100vh;
+  min-height:  100%;
   margin-top: -2%;
   padding-top: 5%;
 }
@@ -478,7 +483,8 @@
   color: #303f9f
 } */
 
-.MuiFormLabel-root-41 {
+
+/* .MuiFormLabel-root-41 {
   color: #303f9f;
   letter-spacing: 5px;
   font-size:5rem !important;
@@ -487,10 +493,11 @@
 .MuiRadio-colorSecondary-60.MuiRadio-checked-57 {
   color: #f76307 !important;
 }
-.MuiTypography-body1-89 {
+*/
+/* .MuiTypography-body1-89 {
   color: #fff !important;
   font-family: raleway !important;
-}
+} */
 
 .slider {
   padding: 4% !important;
@@ -659,4 +666,9 @@
 }
 
 
+}
+
+
+html,body {
+  height:100%;
 }
