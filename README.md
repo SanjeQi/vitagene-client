@@ -1,6 +1,8 @@
 # Vitagene
 
 Vitagene is a genome based web app to get suggestions on your daily supplementation based on your DNA phenotype. As the genomelink API is currently down, a Nodejs server was created to generate dummy data until genomelink is back up and running.
+<br>
+Demo on [heroku](https://vitagene.herokuapp.com/)
 
 ## Getting Started
 
