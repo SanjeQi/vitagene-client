@@ -13,9 +13,12 @@ import Button from '@material-ui/core/Button';
 class Form extends Component {
 
   componentDidMount() {
-    
-      document.getElementById("form").scrollIntoView({behavior: "smooth", block: "start"})
-    
+     if (this.largeWindowSize) {document.getElementById("form").scrollIntoView({behavior: "smooth", block: "start"}) }
+  }
+
+  largeWindowSize = () => {
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+    return width > 768 ? true : true
   }
 
    render() {
@@ -50,12 +53,22 @@ class Form extends Component {
       padding: 0,
       margin: 0
     }
-const formLabel = {
+
+    const formLabelDesktop = {
     
       color: '#303f9f',
       letterSpacing: '5px',
       fontSize:'5rem',
       fontFamily: 'raleway',
+    }
+
+    const formLabelMobile = {
+      color: '#303f9f',
+      letterSpacing: '5px',
+      textAlign: 'left',
+      fontSize:'2rem',
+      fontFamily: 'raleway'
+      
     }
 
    const radiob = {
@@ -83,7 +96,7 @@ const formLabel = {
             {content.map(question =>
               <div className="slider">
                 <FormControl component="fieldset">
-                  <FormLabel style={formLabel} component="legend">{question.question}</FormLabel>
+                  <FormLabel style={this.props.largeWindowSize ? formLabelDesktop : formLabelMobile} component="legend">{question.question}</FormLabel>
                   <RadioGroup
                   aria-label={question.label}
                   style={radiob}
