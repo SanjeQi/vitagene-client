@@ -12,13 +12,16 @@ class Header extends Component {
     pregnant: false,
     form: false
   }
+
+  componentDidMount(){
+    if (this.props.onPage('end')) {
+    document.getElementById("header-logo").scrollIntoView({behavior: "smooth", block: "start"})
+    }
+}
  
 
   formToggle = () => {
     this.setState({form: !this.state.form})
-    if (this.state.form) {
-     this.props.scrollToForm()
-    }
   }
 
   handleChange = (event) => {
@@ -34,6 +37,7 @@ class Header extends Component {
 
   introCopy = () => (
     <div className="head">
+    <div className="root">
       <span className={`vitagene-h1`}>
         {'Vitagene'.split('').map((letter, i) => (
           <Parallax
@@ -46,6 +50,7 @@ class Header extends Component {
           </Parallax>
         ))}
       </span>
+      </div>
     </div>
   )
 
@@ -78,7 +83,7 @@ class Header extends Component {
                   <p>
                     Choosing the right set of vitamins for your daily supplementation can be difficult. 
                     <br /><br />
-                    With Vitagene you can discover the perfect combination of vitamins and minerals based on your genetic phenotype. 
+                    With Vitagene you can discover the perfect combination of vitamins and minerals based on your genotype. 
                     <br /><br />
                     Simply connect your 23andMe account. 
                   </p>
@@ -94,7 +99,7 @@ class Header extends Component {
         : 
       
          (<div className="splash-report">
-            <img src={logo} className="App-logo" alt="logo"/>
+            <img src={logo} id="header-logo" className="App-logo" alt="logo"/>
             {this.introCopy()}
             <br />
             {page === 'end' ?

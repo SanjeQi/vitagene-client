@@ -166,10 +166,10 @@
   
 }
 
-#letter-1 {
+/* #letter-0 {
 
-  letter-spacing: 100px
-}
+ margin-left: -100px
+} */
 
 
 
@@ -182,6 +182,10 @@
   /* height:100vh; */
   padding: 0% 10%;
    font-size: 14px;
+}
+
+.result-pheno  p {
+  text-align: left;
 }
 
 .result-vitamin {
@@ -428,6 +432,10 @@
   color: #fff;
 }
 
+.vita-info p {
+  text-align: left;
+}
+
 .vitstructure {
   /* height: 10vmin; */
   width: 10vmin;
@@ -665,7 +673,10 @@
  
 }
 
-
+.result-food-container p{
+  padding-left: 10%;
+  padding-right: 10%
+}
 }
 
 

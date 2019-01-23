@@ -67,7 +67,7 @@ class VitaminStack extends React.Component  {
             list.push('vegan')
         }
         if (this.props.pregnant) {
-            list.push('pregnant or trying')
+            list.push('pregnant/trying')
         }
         if (this.props.african) {
             list.push('of African descent')
@@ -97,7 +97,7 @@ class VitaminStack extends React.Component  {
 
     render () {
         this.vitaminAmazonLink()
-        const {pageOpen, getStack, pregnant, african, vegan, scrollToLast} = this.props
+        const {pageOpen, getStack, getScore, pregnant, african, vegan, setPage} = this.props
         const {getVitaminInfo, goToBasket, closeBox, expandInfo} = this
         const {boxOpen, selectedVitamin} = this.state
        
@@ -132,15 +132,15 @@ class VitaminStack extends React.Component  {
                
                 <h2 id="vitamins">Your Vitamin Stack</h2>
                 {vegan || pregnant || african ? 
-                   <div>
+                   <div className="vita-info">
                         <p>Based on your genotype, these are your suggested daily supplements.</p>
                         <p>Because you are {this.characteristics()}, we have added the following to your vitamin stack, regardless of your results:</p>
                         <ul>
                         {this.extraSupps().map( supp =>
-                            <li>{supp}</li>)}
+                            <li>+ {supp}</li>)}
                         </ul>
-                        {pregnant ?
-                            <p>We have also removed Vitamin A from your stack, regardless of your genotype. It is suggested that pregnant women avoid supplementing with Vitamin A as this can be damaging to the baby.</p> 
+                        {pregnant && getScore('Vitamin A') < 2 ?
+                            <p>We have also removed Vitamin A from your stack, despite the low blood concentration your genotype. It is suggested that pregnant women avoid additional supplementation with Vitamin A as this can be damaging to the baby.</p> 
                         :
                         null}
                     </div>
@@ -178,7 +178,7 @@ class VitaminStack extends React.Component  {
                             <p>{getVitaminInfo(selectedVitamin).rda}</p>   
                             <h5>Benefits</h5>          
                             <p>{getVitaminInfo(selectedVitamin).benefits}</p>
-                            <h5>Deficiency issues</h5>
+                            <h5>Deficiency symptoms</h5>
                             <ul>{getVitaminInfo(selectedVitamin).deficiency.split(',').map(deficiency =>
                                 <li>+ {deficiency}</li>)} 
                             </ul>
@@ -197,7 +197,7 @@ class VitaminStack extends React.Component  {
                     <br />
                     <br />
                      <div id="section07" className="demo">
-                        <p onClick={scrollToLast} ><span></span><span></span><span></span>Click to scroll</p>
+                        <p onClick={() => {setPage('diet')}} ><span></span><span></span><span></span>Click to scroll</p>
                     </div>
 
                 </div>

@@ -4,6 +4,11 @@ import { WordCloud } from "word-cloud-react";
 
 class Diet extends Component {
 
+    componentDidMount(){
+        if (this.props.onPage('diet')) {
+        document.getElementById("diet").scrollIntoView({behavior: "smooth", block: "start"})
+        }
+    }
 
     generateFoodMap  = () => {
         let array = []
@@ -26,8 +31,8 @@ class Diet extends Component {
         )
         return this.props.vegan ?
             array.filter(food => 
-                !['salmon', 'dairy products', 'beef', 'liver', 'milk', 'cheese', 
-                'sardines','meat', 'seafood', 'poultry', 'beef liver', 'mackerel','clams','eggs', 'fortified milk', 'tuna','egg yolks'].includes(food.word))
+                !['salmon', 'yogurt', 'dairy products', 'beef', 'liver', 'milk', 'cheese', 
+                'sardines','meat', 'seafood', 'poultry', 'fish', 'beef liver', 'mackerel','clams','eggs', 'fortified milk', 'tuna','egg yolks'].includes(food.word))
         : 
             array 
     }
@@ -39,12 +44,13 @@ class Diet extends Component {
  
    render() {
         const num = this.windowSize()
-        const {pageOpen, scrollToTop} = this.props
+        const {pageOpen, setPage} = this.props
        
         return (
             <div className="result-food">
                 <div className="result-food-container">
                     <h2 id="diet">Recommended Foods</h2>
+                    <p>We suggest you incorporate these foods in your diet to ensure you get the required intake of vitamins in your stack. </p>
                     {pageOpen('diet') ?  
                         <div className="word-cloud">
                             <WordCloud className="words"
@@ -62,7 +68,7 @@ class Diet extends Component {
                     }
                 </div>
                 <div id="section08" className="demo">
-                    <p onClick={scrollToTop} ><span></span><span></span><span></span>Back to top</p>
+                    <p onClick={() => {setPage('end')}} ><span></span><span></span><span></span>Back to top</p>
                 </div>
             </div>
         );

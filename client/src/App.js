@@ -32,39 +32,27 @@ class App extends Component {
     }
     this.getVitamins()
   
-    Events.scrollEvent.register('begin', function(to, element) {
-      console.log("begin", arguments);
-    });
+    // Events.scrollEvent.register('begin', function(to, element) {
+    //   console.log("begin", arguments);
+    // });
 
-    Events.scrollEvent.register('end', function(to, element) {
-      console.log("end", arguments);
-    });
+    // Events.scrollEvent.register('end', function(to, element) {
+    //   console.log("end", arguments);
+    // });
 
-    scrollSpy.update();
+    // scrollSpy.update();
 
    }
 
    // SCROLL FUNCTIONS
 
    
-   componentWillUnmount() {
-      Events.scrollEvent.remove('begin');
-      Events.scrollEvent.remove('end');
-  }
+  //  componentWillUnmount() {
+  //     Events.scrollEvent.remove('begin');
+  //     Events.scrollEvent.remove('end');
+  // }
 
-  scrollToTop =  () => {
-    scroll.scrollToTop();
-    this.setPage('end')
-  }
-
-  scrollToBottom =  () => {
-    scroll.scrollToBottom()   
-  }
-
-  scrollToLast =  () => {
-    scroll.scrollToBottom();
-    this.setPage('diet')
-  }
+ 
 
   // PAGE TRANSITION FUNCTIONS
   setPage = (pg) => {
@@ -169,7 +157,7 @@ class App extends Component {
    render() {
     
     const {vitamins,report, currentPage, african, vegan, pregnant} = this.state
-    const {onPage, handleChange, getStack, getScore, getReport, scrollToTop, setPage, exit, scrollToBottom, scrollToLast, pageOpen} = this
+    const {onPage, handleChange, getStack, getScore, getReport, setPage, exit, pageOpen} = this
     const Container = () => {
       return ( 
         <Fragment>
@@ -180,11 +168,11 @@ class App extends Component {
           report={report}/>
 
           <VitaminStack african={african} vegan={vegan} pregnant={pregnant} onPage={onPage} 
-          page={currentPage} pageOpen={pageOpen} scrollToLast={scrollToLast} 
-         getStack={getStack} vitamins={vitamins} report={report}/>
+          page={currentPage} pageOpen={pageOpen} setPage={setPage} 
+         getStack={getStack} getScore={getScore} vitamins={vitamins} report={report}/>
 
-          <Diet vegan={vegan} scrollToTop={scrollToTop} 
-           getStack={getStack} page={currentPage} pageOpen={pageOpen} 
+          <Diet vegan={vegan} setPage={setPage} 
+           getStack={getStack} page={currentPage} onPage={onPage} pageOpen={pageOpen} 
            getScore={getScore} vitamins={vitamins}/>
         </Fragment>
       )
@@ -196,7 +184,7 @@ class App extends Component {
           <Switch>
             {!report ?
               <Route exact path='/' render={routerProps => <Header {...routerProps} page={currentPage}  
-              exit={exit} getReport={getReport} handleChange={handleChange} scrollToForm={scrollToBottom} onPage={onPage} />} />
+              exit={exit} getReport={getReport} handleChange={handleChange} onPage={onPage} />} />
             :
               <Fragment>
                 <Route exact path='/result'render={routerProps => <Container {...routerProps} />}  />

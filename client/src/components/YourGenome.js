@@ -101,7 +101,7 @@ class YourGenome extends Component {
       
         <div className="result-pheno">
             <h2 id="genome" name="genome">Your Phenotype Results</h2> 
-            <p>These are the results of your natural blood serum concentration of each tested micronutrient based on your genotype.
+            <p>These are the results of the average blood serum concentration levels for your genotype of each tested micronutrient.
                  Each nutrient is assigned a score that corresponds to the following: </p>
             <ul>
                 <li>1 - Lower blood serum level</li> 
